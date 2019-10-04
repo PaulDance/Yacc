@@ -23,6 +23,20 @@
 				<th>Country</th>
 				<td>{{ region.country }}</td>
 			</tr>
+			<tr>
+				<th>Rooms</th>
+				<td>
+					<ul>
+						{% for room in region.getRooms() %}
+							<li>
+								<b>{{ room.summary }}</b>: {{ room.capacity }}
+									people for {{ room.price }}€ a night.
+								<a href="{{ path('room_show', {'id': room.id}) }}">Details</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	
