@@ -65,7 +65,6 @@ class Room {
 	
 	public function setSummary(?string $summary): self {
 		$this->summary = $summary;
-		
 		return $this;
 	}
 	
@@ -75,7 +74,6 @@ class Room {
 	
 	public function setDescription(?string $description): self {
 		$this->description = $description;
-		
 		return $this;
 	}
 	
@@ -85,7 +83,6 @@ class Room {
 	
 	public function setCapacity(int $capacity): self {
 		$this->capacity = $capacity;
-		
 		return $this;
 	}
 	
@@ -95,7 +92,6 @@ class Room {
 	
 	public function setArea(float $area): self {
 		$this->area = $area;
-		
 		return $this;
 	}
 	
@@ -105,7 +101,6 @@ class Room {
 	
 	public function setPrice(float $price): self {
 		$this->price = $price;
-		
 		return $this;
 	}
 	
@@ -115,7 +110,6 @@ class Room {
 	
 	public function setAddress(string $address): self {
 		$this->address = $address;
-		
 		return $this;
 	}
 	
@@ -125,7 +119,6 @@ class Room {
 	
 	public function setOwner(?Owner $owner): self {
 		$this->owner = $owner;
-		
 		return $this;
 	}
 	

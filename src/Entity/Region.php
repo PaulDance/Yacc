@@ -48,7 +48,6 @@ class Region {
 	
 	public function setName(string $name): self {
 		$this->name = $name;
-		
 		return $this;
 	}
 	
@@ -58,7 +57,6 @@ class Region {
 	
 	public function setPresentation(?string $presentation): self {
 		$this->presentation = $presentation;
-		
 		return $this;
 	}
 	
@@ -68,7 +66,6 @@ class Region {
 	
 	public function setCountry(?string $country): self {
 		$this->country = $country;
-		
 		return $this;
 	}
 	

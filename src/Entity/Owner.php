@@ -52,7 +52,6 @@ class Owner {
 	
 	public function setFirstName(?string $firstname): self {
 		$this->firstName = $firstname;
-		
 		return $this;
 	}
 	
@@ -62,7 +61,6 @@ class Owner {
 	
 	public function setLastName(string $lastname): self {
 		$this->lastName = $lastname;
-		
 		return $this;
 	}
 	
@@ -72,7 +70,6 @@ class Owner {
 	
 	public function setAddress(?string $address): self {
 		$this->address = $address;
-		
 		return $this;
 	}
 	
@@ -82,7 +79,6 @@ class Owner {
 	
 	public function setCountry(string $country): self {
 		$this->country = $country;
-		
 		return $this;
 	}
 	
