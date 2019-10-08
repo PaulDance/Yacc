@@ -27,8 +27,8 @@ class AppFixtures extends Fixture {
 		$this->addReference(self::IDF_REGION_REFERENCE, $region);
 		
 		$owner = new Owner();
-		$owner->setFirstname("Jean-Michel");
-		$owner->setLastname("Fermier");
+		$owner->setFirstName("Jean-Michel");
+		$owner->setLastName("Fermier");
 		$owner->setCountry("FR");
 		$owner->setAddress("3 hameau de Bouzole");
 		$manager->persist($owner);

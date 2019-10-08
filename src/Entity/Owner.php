@@ -20,11 +20,11 @@ class Owner {
 	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
-	private $firstname;
+	private $firstName;
 	/**
 	 * @ORM\Column(type="string", length=255)
 	 */
-	private $lastname;
+	private $lastName;
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
@@ -46,22 +46,22 @@ class Owner {
 		return $this->id;
 	}
 	
-	public function getFirstname(): ?string {
-		return $this->firstname;
+	public function getFirstName(): ?string {
+		return $this->firstName;
 	}
 	
-	public function setFirstname(?string $firstname): self {
-		$this->firstname = $firstname;
+	public function setFirstName(?string $firstname): self {
+		$this->firstName = $firstname;
 		
 		return $this;
 	}
 	
-	public function getLastname(): ?string {
-		return $this->lastname;
+	public function getLastName(): ?string {
+		return $this->lastName;
 	}
 	
-	public function setLastname(string $lastname): self {
-		$this->lastname = $lastname;
+	public function setLastName(string $lastname): self {
+		$this->lastName = $lastname;
 		
 		return $this;
 	}
@@ -121,6 +121,6 @@ class Owner {
 	 * @return String: The String representing the object.
 	 */
 	public function __toString(): String {
-		return "$this->id: $this->firstname $this->lastname @ $this->address $this->country";
+		return "$this->id: $this->firstName $this->lastName @ $this->address $this->country";
 	}
 }
