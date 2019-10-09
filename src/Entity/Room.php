@@ -65,6 +65,16 @@ class Room {
 		$this->reservations = new ArrayCollection();
 	}
 	
+	/**
+	 * Makes a textual representation of the Room object containing its
+	 * id, capacity in people, price in euros and address.
+	 *
+	 * @return String: The String representing the object.
+	 */
+	public function __toString(): String {
+		return "$this->id: $this->capacity p for $this->price € @ $this->address";
+	}
+	
 	public function getId(): ?int {
 		return $this->id;
 	}
@@ -153,16 +163,6 @@ class Room {
 		}
 		
 		return $this;
-	}
-	
-	/**
-	 * Makes a textual representation of the Room object containing its
-	 * id, capacity in people, price in euros and address.
-	 *
-	 * @return String: The String representing the object.
-	 */
-	public function __toString(): String {
-		return "$this->id: $this->capacity p for $this->price € @ $this->address";
 	}
 	
 	/**

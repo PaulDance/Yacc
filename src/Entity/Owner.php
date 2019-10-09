@@ -42,6 +42,16 @@ class Owner {
 		$this->rooms = new ArrayCollection();
 	}
 	
+	/**
+	 * Makes a textual representation of the Owner object containing its
+	 * id, firstname, lastname, address and country code.
+	 *
+	 * @return String: The String representing the object.
+	 */
+	public function __toString(): String {
+		return "$this->id: $this->firstName $this->lastName @ $this->address $this->country";
+	}
+	
 	public function getId(): ?int {
 		return $this->id;
 	}
@@ -108,15 +118,5 @@ class Owner {
 		}
 		
 		return $this;
-	}
-	
-	/**
-	 * Makes a textual representation of the Owner object containing its
-	 * id, firstname, lastname, address and country code.
-	 *
-	 * @return String: The String representing the object.
-	 */
-	public function __toString(): String {
-		return "$this->id: $this->firstName $this->lastName @ $this->address $this->country";
 	}
 }

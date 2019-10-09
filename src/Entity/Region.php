@@ -38,6 +38,16 @@ class Region {
 		$this->rooms = new ArrayCollection();
 	}
 	
+	/**
+	 * Makes a textual representation of the Region object containing its
+	 * id, name and country code.
+	 *
+	 * @return String: The String representing the object.
+	 */
+	public function __toString(): String {
+		return "$this->id: $this->name @ $this->country";
+	}
+	
 	public function getId(): ?int {
 		return $this->id;
 	}
@@ -92,15 +102,5 @@ class Region {
 		}
 		
 		return $this;
-	}
-	
-	/**
-	 * Makes a textual representation of the Region object containing its
-	 * id, name and country code.
-	 * 
-	 * @return String: The String representing the object.
-	 */
-	public function __toString(): String {
-		return "$this->id: $this->name @ $this->country";
 	}
 }
