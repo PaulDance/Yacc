@@ -50,9 +50,19 @@ class Room {
 	 * @ORM\ManyToMany(targetEntity="App\Entity\Region", inversedBy="rooms")
 	 */
 	private $regions;
+	/**
+	 * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="room", orphanRemoval=true)
+	 */
+	private $comments;
+	/**
+	 * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="rooms")
+	 */
+	private $reservations;
 	
 	public function __construct() {
 		$this->regions = new ArrayCollection();
+		$this->comments = new ArrayCollection();
+		$this->reservations = new ArrayCollection();
 	}
 	
 	public function getId(): ?int {
@@ -153,5 +163,58 @@ class Room {
 	 */
 	public function __toString(): String {
 		return "$this->id: $this->capacity p for $this->price € @ $this->address";
+	}
+	
+	/**
+	 * @return Collection|Comment[]
+	 */
+	public function getComments(): Collection {
+		return $this->comments;
+	}
+	
+	public function addComment(Comment $comment): self {
+		if (!$this->comments->contains($comment)) {
+			$this->comments[] = $comment;
+			$comment->setRoom($this);
+		}
+		
+		return $this;
+	}
+	
+	public function removeComment(Comment $comment): self {
+		if ($this->comments->contains($comment)) {
+			$this->comments->removeElement($comment);
+			// set the owning side to null (unless already changed)
+			if ($comment->getRoom() === $this) {
+				$comment->setRoom(null);
+			}
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * @return Collection|Reservation[]
+	 */
+	public function getReservations(): Collection {
+		return $this->reservations;
+	}
+	
+	public function addReservation(Reservation $reservation): self {
+		if (!$this->reservations->contains($reservation)) {
+			$this->reservations[] = $reservation;
+			$reservation->addRoom($this);
+		}
+		
+		return $this;
+	}
+	
+	public function removeReservation(Reservation $reservation): self {
+		if ($this->reservations->contains($reservation)) {
+			$this->reservations->removeElement($reservation);
+			$reservation->removeRoom($this);
+		}
+		
+		return $this;
 	}
 }
