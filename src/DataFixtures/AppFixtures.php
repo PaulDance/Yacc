@@ -7,6 +7,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Region;
 use App\Entity\Room;
 use App\Entity\Owner;
+use App\Entity\Client;
+use App\Entity\Comment;
 
 
 class AppFixtures extends Fixture {
@@ -44,6 +46,18 @@ class AppFixtures extends Fixture {
 		// $room->addRegion($region);
 		$room->addRegion($this->getReference(self::IDF_REGION_REFERENCE));
 		$manager->persist($room);
+		
+		$client = new Client();
+		$client->setFirstName("Geoffroy");
+		$client->setLastName("Zardi");
+		$client->setEmail("geoffroy.zardi@telecom-sudparis.eu");
+		$manager->persist($client);
+		
+		$comment = new Comment();
+		$comment->setText("Un certain charme rustique.");
+		$comment->setRoom($room);
+		$comment->setClient($client);
+		$manager->persist($comment);
 		
 		$manager->flush();
 	}

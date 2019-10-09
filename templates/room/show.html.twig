@@ -35,6 +35,20 @@
 				<th>Address</th>
 				<td>{{ room.address }}</td>
 			</tr>
+			<tr>
+				<th>Comments</th>
+				<td>
+					<ul>
+				        {% for comment in room.getComments() %}
+					        <li>
+					        	{{ comment.client.getFirstName() }}
+					        	{{ comment.client.getLastName() }}:
+					        	{{ comment.getText() }}
+					        </li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	
