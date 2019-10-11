@@ -1,0 +1,4 @@
+[submodule "public/material-kit"]
+	path = public/material-kit
+	url = git@github.com:creativetimofficial/material-kit.git
+	branch = master
