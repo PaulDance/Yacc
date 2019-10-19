@@ -1,0 +1,10 @@
+bootstrap_menu:
+  menus:
+    main_left:
+      items:
+        rooms:
+          label: 'Rooms'
+          route: 'room_index'
+        regions:
+          label: 'Regions'
+          route: 'region_index'

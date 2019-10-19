@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Welcome to {{ project_name }}!{% endblock %}
+
+{% block body %}
+	<header>
+		{% block menu %}
+			<nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100">
+				<div class="container">
+					<div class="navbar-translate">
+						<a class="navbar-brand" href="{{ path('home') }}">{{ project_name }}</a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="navbar-toggler-icon"></span>
+						</button>
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="navbar-nav mr-auto">
+							{{ render_bootstrap_menu('main_left') }}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		{% endblock %} {# menu #}
+	</header>
+	<div class="page-header header-filter" data-parallax="true" {#style="background-image: url({{ background_image }})"#}>
+		<div class="container">
+			{% block page_header %}{% endblock %}
+		</div>
+	</div>
+	<div class="main main-raised">
+		<div class="container">
+			{% block main %}{% endblock %}
+		</div>
+	</div>
+	<footer class="footer footer-default">
+		<div class="container">
+			{% block footer %}{% endblock %}
+		</div>
+	</footer>
+{% endblock %} {# header #}
