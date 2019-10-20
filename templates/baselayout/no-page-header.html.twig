@@ -17,7 +17,7 @@
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="navbar-nav mr-auto">
-							{{ render_bootstrap_menu('main_left') }}
+							{{ render_bootstrap_menu('main_top_left') }}
 						</ul>
 					</div>
 				</div>
@@ -38,7 +38,11 @@
 	</div>
 	<footer class="footer footer-default">
 		<div class="container">
-			{% block footer %}{% endblock footer %}
+			<nav class="float-left">
+				<ul>
+					{{ render_bootstrap_menu('main_bottom_left') }}
+				</ul>
+			</nav>
 		</div>
 	</footer>
 {% endblock body %}

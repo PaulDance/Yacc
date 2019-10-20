@@ -1,10 +1,17 @@
 bootstrap_menu:
   menus:
-    main_left:
+    main_top_left:
       items:
         rooms:
           label: 'Rooms'
           route: 'room_index'
+        
         regions:
           label: 'Regions'
           route: 'region_index'
+    
+    main_bottom_left:
+      items:
+        home:
+          label: 'Home'
+          route: 'home'
