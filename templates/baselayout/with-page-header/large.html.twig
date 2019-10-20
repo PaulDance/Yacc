@@ -1,0 +1,9 @@
+{% extends 'baselayout/no-page-header.html.twig' %}
+
+{% block page_header %}					{# Large page-header: material kit's default, takes a whole page size. #}
+	<div class="page-header header-filter" data-parallax="true" {#style="background-image: url({{ background_image }})"#}>
+		<div class="container">
+			{% block page_header_content %}{% endblock %}
+		</div>
+	</div>
+{% endblock %} {# page_header #}

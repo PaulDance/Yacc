@@ -1,0 +1,9 @@
+{% extends 'baselayout/no-page-header.html.twig' %}
+
+{% block page_header %}					{# "Small" page-header, more like medium though, takes half of the page. #}
+	<div class="page-header header-filter header-small" data-parallax="true" {#style="background-image: url({{ background_image }})"#}>
+		<div class="container">
+			{% block page_header_content %}{% endblock %}
+		</div>
+	</div>
+{% endblock %} {# page_header #}

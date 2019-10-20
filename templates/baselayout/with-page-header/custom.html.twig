@@ -1,0 +1,9 @@
+{% extends 'baselayout/no-page-header.html.twig' %}
+
+{% block page_header %}					{# Page-header with custom height given by the "page_header_height" variable #}
+	<div class="page-header header-filter" data-parallax="true" style="height: {{ page_header_height }}" {#style="background-image: url({{ background_image }})"#}>
+		<div class="container">
+			{% block page_header_content %}{% endblock %}
+		</div>
+	</div>
+{% endblock %} {# page_header #}
