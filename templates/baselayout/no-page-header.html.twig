@@ -22,23 +22,23 @@
 					</div>
 				</div>
 			</nav>
-		{% endblock %} {# menu #}
+		{% endblock menu %}
 	</header>
 	{% block page_header %}					{# Default page-header: very small ~= non-existent #}
 		<div class="page-header header-filter" data-parallax="true" style="height: 135px" {#style="background-image: url({{ background_image }})"#}>
 			<div class="container">
-				{% block page_header_content %}{% endblock %}
+				{% block page_header_content %}{% endblock page_header_content %}
 			</div>
 		</div>
-	{% endblock %} {# page_header #}
+	{% endblock page_header %}
 	<div class="main main-raised">
 		<div class="container">
-			{% block main %}{% endblock %}
+			{% block main %}{% endblock main %}
 		</div>
 	</div>
 	<footer class="footer footer-default">
 		<div class="container">
-			{% block footer %}{% endblock %}
+			{% block footer %}{% endblock footer %}
 		</div>
 	</footer>
-{% endblock %} {# header #}
+{% endblock header %}
