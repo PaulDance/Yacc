@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'baselayout/no-page-header.html.twig' %}
 
-{% block title %}Room{% endblock %}
+{% block title %}Room{% endblock title %}
 
-{% block body %}
+{% block main %}
 	<h1>Room</h1>
 	
 	<table class="table">
@@ -58,4 +58,4 @@
 	<a href="{{ path('room_edit', {'id': room.id}) }}">edit</a>
 	
 	{{ include('room/_delete_form.html.twig') }}
-{% endblock %}
+{% endblock main %}

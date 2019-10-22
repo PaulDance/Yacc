@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'baselayout/no-page-header.html.twig' %}
 
-{% block title %}Edit Room{% endblock %}
+{% block title %}Edit Room{% endblock title %}
 
-{% block body %}
+{% block main %}
 	<h1>Edit Room</h1>
 	
 	{{ include('room/_form.html.twig', {'button_label': 'Update'}) }}
@@ -11,4 +11,4 @@
 	<a href="{{ path('room_index') }}">back to list</a>
 	
 	{{ include('room/_delete_form.html.twig') }}
-{% endblock %}
+{% endblock main %}

@@ -1,12 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'baselayout/no-page-header.html.twig' %}
 
-{% block title %}New Region{% endblock %}
+{% block title %}New Region{% endblock title %}
 
-{% block body %}
+{% block main %}
 	<h1>Create new Region</h1>
 	
 	{{ include('region/_form.html.twig') }}
 	
 	<br/>
 	<a href="{{ path('region_index') }}">back to list</a>
-{% endblock %}
+{% endblock main %}

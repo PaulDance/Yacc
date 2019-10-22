@@ -1,12 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'baselayout/no-page-header.html.twig' %}
 
-{% block title %}New Room{% endblock %}
+{% block title %}New Room{% endblock title %}
 
-{% block body %}
+{% block main %}
 	<h1>Create new Room</h1>
 	
 	{{ include('room/_form.html.twig') }}
 	
 	<br/>
 	<a href="{{ path('room_index') }}">back to list</a>
-{% endblock %}
+{% endblock main %}
