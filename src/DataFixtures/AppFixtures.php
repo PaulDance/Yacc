@@ -55,6 +55,7 @@ class AppFixtures extends Fixture {
 		
 		$comment = new Comment();
 		$comment->setText("Un certain charme rustique.");
+		$comment->setGrade(3);
 		$comment->setRoom($room);
 		$comment->setClient($client);
 		$manager->persist($comment);

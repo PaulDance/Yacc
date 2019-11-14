@@ -20,6 +20,10 @@ class Comment {
 	 */
 	private $text;
 	/**
+	 * @ORM\Column(type="smallint")
+	 */
+	private $grade;
+	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="comments")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
@@ -40,6 +44,15 @@ class Comment {
 	
 	public function setText(string $text): self {
 		$this->text = $text;
+		return $this;
+	}
+	
+	public function getGrade(): ?int {
+		return $this->grade;
+	}
+	
+	public function setGrade(int $grade): self {
+		$this->grade = $grade;
 		return $this;
 	}
 	
