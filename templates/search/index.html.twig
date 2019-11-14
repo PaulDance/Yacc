@@ -1,0 +1,17 @@
+{% extends 'baselayout/no-page-header.html.twig' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block main %}
+<div class="container">
+	{{ form(form) }}
+	
+	<div>
+		<ul>
+			{% for room in rooms %}
+				<li><a href="{{ path('room_show', {'id': room.id}) }}">{{ room.getSummary() }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock main %}
