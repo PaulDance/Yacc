@@ -18,9 +18,13 @@ class Reservation {
 	 */
 	private $id;
 	/**
-	 * @ORM\Column(type="dateinterval")
+	 * @ORM\Column(type="date")
 	 */
-	private $dateInterval;
+	private $startDate;
+	/**
+	 * @ORM\Column(type="date")
+	 */
+	private $endDate;
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="reservations")
 	 * @ORM\JoinColumn(nullable=false)
@@ -39,12 +43,21 @@ class Reservation {
 		return $this->id;
 	}
 	
-	public function getDateInterval(): ?\DateInterval {
-		return $this->dateInterval;
+	public function getStartDate(): ?\DateTimeInterface {
+		return $this->startDate;
 	}
 	
-	public function setDateInterval(\DateInterval $dateInterval): self {
-		$this->dateInterval = $dateInterval;
+	public function setStartDate(\DateTimeInterface $startDate): self {
+		$this->startDate = $startDate;
+		return $this;
+	}
+	
+	public function getEndDate(): ?\DateTimeInterface {
+		return $this->endDate;
+	}
+	
+	public function setEndDate(\DateTimeInterface $endDate): self {
+		$this->endDate = $endDate;
 		return $this;
 	}
 	
