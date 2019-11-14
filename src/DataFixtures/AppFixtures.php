@@ -56,6 +56,7 @@ class AppFixtures extends Fixture {
 		$gzJmRoom1Comment1 = new Comment();
 		$gzJmRoom1Comment1->setText("Un certain charme rustique.");
 		$gzJmRoom1Comment1->setGrade(3);
+		$gzJmRoom1Comment1->setDateTime((new \DateTime())->setDate(2019, 10, 23)->setTime(19, 46, 17));
 		$gzJmRoom1Comment1->setRoom($jmRoom1);
 		$gzJmRoom1Comment1->setClient($geoffroyZardiClient);
 		$manager->persist($gzJmRoom1Comment1);

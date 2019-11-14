@@ -24,6 +24,10 @@ class Comment {
 	 */
 	private $grade;
 	/**
+	 * @ORM\Column(type="datetime")
+	 */
+	private $dateTime;
+	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="comments")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
@@ -53,6 +57,15 @@ class Comment {
 	
 	public function setGrade(int $grade): self {
 		$this->grade = $grade;
+		return $this;
+	}
+	
+	public function getDateTime(): ?\DateTimeInterface {
+		return $this->dateTime;
+	}
+	
+	public function setDateTime(\DateTimeInterface $dateTime): self {
+		$this->dateTime = $dateTime;
 		return $this;
 	}
 	
