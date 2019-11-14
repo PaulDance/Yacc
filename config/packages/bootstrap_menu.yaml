@@ -2,6 +2,9 @@ bootstrap_menu:
   menus:
     main_top_left:
       items:
+        search:
+          label: 'Search'
+          route: 'search'
         rooms:
           label: 'Rooms'
           route: 'room_index'
