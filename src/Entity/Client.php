@@ -26,10 +26,6 @@ class Client {
 	 */
 	private $lastName;
 	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $email;
-	/**
 	 * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="client", orphanRemoval=true)
 	 */
 	private $comments;
@@ -62,15 +58,6 @@ class Client {
 	
 	public function setLastName(string $lastName): self {
 		$this->lastName = $lastName;
-		return $this;
-	}
-	
-	public function getEmail(): ?string {
-		return $this->email;
-	}
-	
-	public function setEmail(string $email): self {
-		$this->email = $email;
 		return $this;
 	}
 	

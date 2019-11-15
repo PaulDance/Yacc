@@ -62,8 +62,7 @@ class AppFixtures extends Fixture {
 		
 		$geoffroyZardiClient = (new Client())
 									->setFirstName("Geoffroy")
-									->setLastName("Zardi")
-									->setEmail("geoffroy.zardi@telecom-sudparis.eu");
+									->setLastName("Zardi");
 		$manager->persist($geoffroyZardiClient);
 		
 		$gzJmRoom1Comment1 = (new Comment())
@@ -86,8 +85,7 @@ class AppFixtures extends Fixture {
 		
 		$alexisLeGlaunecClient = (new Client())
 										->setFirstName("Alexis")
-										->setLastName("Le Glaunec")
-										->setEmail("alexis.leglaunec@telecom-sudparis.eu");
+										->setLastName("Le Glaunec");
 		$manager->persist($alexisLeGlaunecClient);
 		
 		$algJmRoom1Reservation = (new Reservation())
