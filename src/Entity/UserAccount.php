@@ -7,9 +7,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserAccountRepository")
  */
-class User implements UserInterface {
+class UserAccount implements UserInterface {
 	/**
 	 * @ORM\Id()
 	 * @ORM\GeneratedValue()
@@ -57,8 +57,7 @@ class User implements UserInterface {
 	 */
 	public function getRoles(): array {
 		$roles = $this->roles;
-		// guarantee every user at least has ROLE_USER
-		$roles[] = 'ROLE_USER';
+		$roles[] = 'ROLE_USER';							// Guarantee every user at least has ROLE_USER.
 		return array_unique($roles);
 	}
 	
@@ -83,7 +82,7 @@ class User implements UserInterface {
 	 * @see UserInterface
 	 */
 	public function getSalt() {
-		// not needed when using the "bcrypt" algorithm in security.yaml
+		// Not needed when using the "bcrypt" algorithm in security.yaml.
 	}
 	
 	/**
