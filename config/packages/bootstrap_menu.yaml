@@ -13,6 +13,15 @@ bootstrap_menu:
           label: 'Regions'
           route: 'region_index'
     
+    main_top_right:
+      items:
+        login:
+          label: 'Login'
+          route: 'login'
+        logout:
+          label: 'Logout'
+          route: 'logout' 
+    
     main_bottom_left:
       items:
         home:
