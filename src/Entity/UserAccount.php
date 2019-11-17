@@ -75,7 +75,7 @@ class UserAccount implements UserInterface {
 	 * @see UserInterface
 	 */
 	public function getUsername(): string {
-		return (string) $this->email;
+		return "$this->firstName $this->lastName <$this->email>";
 	}
 	
 	/**
