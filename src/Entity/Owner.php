@@ -18,13 +18,10 @@ class Owner {
 	 */
 	private $id;
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @ORM\OneToOne(targetEntity="App\Entity\UserAccount", cascade={"persist", "remove"})
+	 * @ORM\JoinColumn(nullable=false)
 	 */
-	private $firstName;
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $lastName;
+	private $userAccount;
 	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
@@ -56,21 +53,12 @@ class Owner {
 		return $this->id;
 	}
 	
-	public function getFirstName(): ?string {
-		return $this->firstName;
+	public function getUserAccount(): ?UserAccount {
+		return $this->userAccount;
 	}
 	
-	public function setFirstName(?string $firstname): self {
-		$this->firstName = $firstname;
-		return $this;
-	}
-	
-	public function getLastName(): ?string {
-		return $this->lastName;
-	}
-	
-	public function setLastName(string $lastname): self {
-		$this->lastName = $lastname;
+	public function setUserAccount(UserAccount $userAccount): self {
+		$this->userAccount = $userAccount;
 		return $this;
 	}
 	

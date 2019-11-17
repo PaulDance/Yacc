@@ -17,6 +17,14 @@ class UserAccount implements UserInterface {
 	 */
 	private $id;
 	/**
+	 * @ORM\Column(type="string", length=255, nullable=true)
+	 */
+	private $firstName;
+	/**
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $lastName;
+	/**
 	 * @ORM\Column(type="string", length=180, unique=true)
 	 */
 	private $email;
@@ -32,6 +40,24 @@ class UserAccount implements UserInterface {
 	
 	public function getId(): ?int {
 		return $this->id;
+	}
+	
+	public function getFirstName(): ?string {
+		return $this->firstName;
+	}
+	
+	public function setFirstName(?string $firstName): self {
+		$this->firstName = $firstName;
+		return $this;
+	}
+	
+	public function getLastName(): ?string {
+		return $this->lastName;
+	}
+	
+	public function setLastName(string $lastName): self {
+		$this->lastName = $lastName;
+		return $this;
 	}
 	
 	public function getEmail(): ?string {
@@ -57,7 +83,7 @@ class UserAccount implements UserInterface {
 	 */
 	public function getRoles(): array {
 		$roles = $this->roles;
-		$roles[] = 'ROLE_USER';							// Guarantee every user at least has ROLE_USER.
+		$roles[] = 'ROLE_USER'; // Guarantee every user at least has ROLE_USER.
 		return array_unique($roles);
 	}
 	

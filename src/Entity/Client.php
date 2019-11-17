@@ -18,13 +18,10 @@ class Client {
 	 */
 	private $id;
 	/**
-	 * @ORM\Column(type="string", length=255, nullable=true)
+	 * @ORM\OneToOne(targetEntity="App\Entity\UserAccount", cascade={"persist", "remove"})
+	 * @ORM\JoinColumn(nullable=false)
 	 */
-	private $firstName;
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $lastName;
+	private $userAccount;
 	/**
 	 * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="client", orphanRemoval=true)
 	 */
@@ -43,21 +40,12 @@ class Client {
 		return $this->id;
 	}
 	
-	public function getFirstName(): ?string {
-		return $this->firstName;
+	public function getUserAccount(): ?UserAccount {
+		return $this->userAccount;
 	}
 	
-	public function setFirstName(?string $firstName): self {
-		$this->firstName = $firstName;
-		return $this;
-	}
-	
-	public function getLastName(): ?string {
-		return $this->lastName;
-	}
-	
-	public function setLastName(string $lastName): self {
-		$this->lastName = $lastName;
+	public function setUserAccount(UserAccount $userAccount): self {
+		$this->userAccount = $userAccount;
 		return $this;
 	}
 	
