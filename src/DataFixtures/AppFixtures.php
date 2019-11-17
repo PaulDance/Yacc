@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\Entity\Region;
 use App\Entity\Room;
 use App\Entity\Owner;
@@ -16,6 +17,11 @@ use App\Entity\UserAccount;
 class AppFixtures extends Fixture {
 	// définit un nom de référence pour une instance de Region
 	public const IDF_REGION_REFERENCE = 'idf-region';
+	private $passwordEncoder;
+	
+	public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
+		$this->passwordEncoder = $passwordEncoder;
+	}
 	
 	public function load(ObjectManager $manager) {
 		$idfRegion = (new Region())
@@ -30,13 +36,15 @@ class AppFixtures extends Fixture {
 		// donc être sauvegardée comme future référence.
 		$this->addReference(self::IDF_REGION_REFERENCE, $idfRegion);
 		
-		
+		$jeanMichelOwnerAccount = new UserAccount();
 		$jeanMichelOwner = (new Owner())
-								->setUserAccount((new UserAccount())
-														->setEmail('jm-du-28@club-internet.fr')
-														->setFirstName('Jean-Michel')
-														->setLastName('Fermier')
-														->setPassword('gertrude'))
+								->setUserAccount($jeanMichelOwnerAccount
+													->setEmail('jm-du-28@club-internet.fr')
+													->setFirstName('Jean-Michel')
+													->setLastName('Fermier')
+													->setPassword($this->passwordEncoder
+																		->encodePassword($jeanMichelOwnerAccount,
+																						'gertrude')))
 								->setCountry('FR')
 								->setAddress('3 hameau de Bouzole');
 		$manager->persist($jeanMichelOwner);
@@ -64,12 +72,15 @@ class AppFixtures extends Fixture {
 		$manager->persist($jmRoom2);
 		
 		
+		$geoffroyZardiClientAccount = new UserAccount();
 		$geoffroyZardiClient = (new Client())
-									->setUserAccount((new UserAccount())
-															->setEmail('geoffroy.zardi@telecom-sudparis.eu')
-															->setFirstName('Geoffroy')
-															->setLastName('Zardi')
-															->setPassword('gzpasswd'));
+									->setUserAccount($geoffroyZardiClientAccount
+														->setEmail('geoffroy.zardi@telecom-sudparis.eu')
+														->setFirstName('Geoffroy')
+														->setLastName('Zardi')
+														->setPassword($this->passwordEncoder
+																			->encodePassword($geoffroyZardiClientAccount,
+																							'gzpasswd')));
 		$manager->persist($geoffroyZardiClient);
 		
 		$gzJmRoom1Comment1 = (new Comment())
@@ -90,12 +101,15 @@ class AppFixtures extends Fixture {
 		$manager->persist($gzJmRoom1Reservation);
 		
 		
+		$alexisLeGlaunecClientAccount = new UserAccount();
 		$alexisLeGlaunecClient = (new Client())
-										->setUserAccount((new UserAccount())
-												->setEmail('alexis.le_glaunec@telecom-sudparis.eu')
-												->setFirstName('Alexis')
-												->setLastName('Le Glaunec')
-												->setPassword('algpasswd'));
+									->setUserAccount($alexisLeGlaunecClientAccount
+														->setEmail('alexis.le_glaunec@telecom-sudparis.eu')
+														->setFirstName('Alexis')
+														->setLastName('Le Glaunec')
+														->setPassword($this->passwordEncoder
+																			->encodePassword($alexisLeGlaunecClientAccount,
+																							'algpasswd')));
 		$manager->persist($alexisLeGlaunecClient);
 		
 		$algJmRoom1Reservation = (new Reservation())
