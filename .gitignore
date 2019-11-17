@@ -18,6 +18,9 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
+# Composer
+composer.lock
+
 # Eclipse project
 .project
 .buildpath
