@@ -10,6 +10,7 @@ use App\Entity\Owner;
 use App\Entity\Client;
 use App\Entity\Comment;
 use App\Entity\Reservation;
+use App\Entity\UserAccount;
 
 
 class AppFixtures extends Fixture {
@@ -18,9 +19,9 @@ class AppFixtures extends Fixture {
 	
 	public function load(ObjectManager $manager) {
 		$idfRegion = (new Region())
-						->setCountry("FR")
-						->setName("Île-de-France")
-						->setPresentation("La région française capitale.");
+						->setCountry('FR')
+						->setName('Île-de-France')
+						->setPresentation('La région française capitale.');
 		$manager->persist($idfRegion);
 		
 		$manager->flush();
@@ -31,42 +32,48 @@ class AppFixtures extends Fixture {
 		
 		
 		$jeanMichelOwner = (new Owner())
-								->setFirstName("Jean-Michel")
-								->setLastName("Fermier")
-								->setCountry("FR")
-								->setAddress("3 hameau de Bouzole");
+								->setUserAccount((new UserAccount())
+														->setEmail('jm-du-28@club-internet.fr')
+														->setFirstName('Jean-Michel')
+														->setLastName('Fermier')
+														->setPassword('gertrude'))
+								->setCountry('FR')
+								->setAddress('3 hameau de Bouzole');
 		$manager->persist($jeanMichelOwner);
 		
 		$jmRoom1 = (new Room())
-						->setSummary("Beau poulailler ancien à Évry")
-						->setDescription("Très joli espace sur paille.")
+						->setSummary('Beau poulailler ancien à Évry')
+						->setDescription('Très joli espace sur paille.')
 						->setCapacity(15)
 						->setArea(5.0)
 						->setPrice(10.0)
-						->setAddress("4 hameau de Bouzole")
+						->setAddress('4 hameau de Bouzole')
 						->setOwner($jeanMichelOwner)
 						->addRegion($this->getReference(self::IDF_REGION_REFERENCE));
 		$manager->persist($jmRoom1);
 		
 		$jmRoom2 = (new Room())
-						->setSummary("Belle chambre spacieuse à Évry")
-						->setDescription("Vue sur poulailler ancien.")
+						->setSummary('Belle chambre spacieuse à Évry')
+						->setDescription('Vue sur poulailler ancien.')
 						->setCapacity(4)
 						->setArea(40.0)
 						->setPrice(70.0)
-						->setAddress("6 hameau de Bouzole")
+						->setAddress('6 hameau de Bouzole')
 						->setOwner($jeanMichelOwner)
 						->addRegion($this->getReference(self::IDF_REGION_REFERENCE));
 		$manager->persist($jmRoom2);
 		
 		
 		$geoffroyZardiClient = (new Client())
-									->setFirstName("Geoffroy")
-									->setLastName("Zardi");
+									->setUserAccount((new UserAccount())
+															->setEmail('geoffroy.zardi@telecom-sudparis.eu')
+															->setFirstName('Geoffroy')
+															->setLastName('Zardi')
+															->setPassword('gzpasswd'));
 		$manager->persist($geoffroyZardiClient);
 		
 		$gzJmRoom1Comment1 = (new Comment())
-									->setText("Un certain charme rustique.")
+									->setText('Un certain charme rustique.')
 									->setGrade(3)
 									->setDateTime((new \DateTime())
 														->setDate(2019, 10, 23)
@@ -84,8 +91,11 @@ class AppFixtures extends Fixture {
 		
 		
 		$alexisLeGlaunecClient = (new Client())
-										->setFirstName("Alexis")
-										->setLastName("Le Glaunec");
+										->setUserAccount((new UserAccount())
+												->setEmail('alexis.le_glaunec@telecom-sudparis.eu')
+												->setFirstName('Alexis')
+												->setLastName('Le Glaunec')
+												->setPassword('algpasswd'));
 		$manager->persist($alexisLeGlaunecClient);
 		
 		$algJmRoom1Reservation = (new Reservation())
