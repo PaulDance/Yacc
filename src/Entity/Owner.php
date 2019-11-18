@@ -18,7 +18,7 @@ class Owner {
 	 */
 	private $id;
 	/**
-	 * @ORM\OneToOne(targetEntity="App\Entity\UserAccount", cascade={"persist", "remove"})
+	 * @ORM\OneToOne(targetEntity="App\Entity\UserAccount", inversedBy="possibleOwner", cascade={"persist", "remove"})
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $userAccount;
