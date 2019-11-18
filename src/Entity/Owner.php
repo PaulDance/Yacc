@@ -46,7 +46,7 @@ class Owner {
 	 * @return String: The String representing the object.
 	 */
 	public function __toString(): String {
-		return "$this->id: $this->firstName $this->lastName @ $this->address $this->country";
+		return "$this->id: $this->userAccount @ $this->address $this->country";
 	}
 	
 	public function getId(): ?int {
