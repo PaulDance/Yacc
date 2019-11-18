@@ -107,6 +107,22 @@ class UserAccount implements UserInterface {
 	}
 	
 	/**
+	 * Adds a new role to the user account. If the given role
+	 * is already present in the account roles, then nothing
+	 * is done.
+	 *  
+	 * @param string $role The new role to add.
+	 * @return self The underlying UserAccount.
+	 */
+	public function addRole(string $role): self {
+		if (!in_array($role, $this->roles)) {
+			$this->roles[] = $role;
+		}
+		
+		return $this;
+	}
+	
+	/**
 	 * @see UserInterface
 	 */
 	public function getPassword(): string {
