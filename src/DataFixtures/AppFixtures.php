@@ -32,6 +32,7 @@ class AppFixtures extends Fixture {
 		$jeanMichelOwnerAccount = new UserAccount();
 		$jeanMichelOwner = (new Owner())
 								->setUserAccount($jeanMichelOwnerAccount
+													->addRole('ROLE_OWNER')
 													->setEmail('jm-du-28@club-internet.fr')
 													->setFirstName('Jean-Michel')
 													->setLastName('Fermier')
@@ -68,6 +69,7 @@ class AppFixtures extends Fixture {
 		$geoffroyZardiClientAccount = new UserAccount();
 		$geoffroyZardiClient = (new Client())
 									->setUserAccount($geoffroyZardiClientAccount
+														->addRole('ROLE_CLIENT')
 														->setEmail('geoffroy.zardi@telecom-sudparis.eu')
 														->setFirstName('Geoffroy')
 														->setLastName('Zardi')
@@ -97,6 +99,7 @@ class AppFixtures extends Fixture {
 		$alexisLeGlaunecClientAccount = new UserAccount();
 		$alexisLeGlaunecClient = (new Client())
 									->setUserAccount($alexisLeGlaunecClientAccount
+														->addRole('ROLE_CLIENT')
 														->setEmail('alexis.le_glaunec@telecom-sudparis.eu')
 														->setFirstName('Alexis')
 														->setLastName('Le Glaunec')
