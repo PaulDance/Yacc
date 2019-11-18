@@ -13,14 +13,26 @@ bootstrap_menu:
           label: 'Regions'
           route: 'region_index'
     
-    main_top_right:
+    main_top_right_anonymous:
       items:
-        login:
-          label: 'Login'
-          route: 'login'
-        logout:
-          label: 'Logout'
-          route: 'logout' 
+        account:
+          label: 'Account'
+          items:
+            login:
+              label: 'Login'
+              route: 'login'
+            logout:
+              label: 'Register'
+              route: 'register' 
+    
+    main_top_right_logged_in:
+      items:
+        account:
+          label: 'Account'
+          items:
+            logout:
+              label: 'Logout'
+              route: 'logout' 
     
     main_bottom_left:
       items:

@@ -20,7 +20,11 @@
 							{{ render_bootstrap_menu('main_top_left') }}
 						</ul>
 						<ul class="navbar-nav ml-auto">
-							{{ render_bootstrap_menu('main_top_right') }}
+							{% if app.user %}
+								{{ render_bootstrap_menu('main_top_right_logged_in') }}
+							{% else %}
+								{{ render_bootstrap_menu('main_top_right_anonymous') }}
+							{% endif %}
 						</ul>
 					</div>
 				</div>
