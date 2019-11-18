@@ -41,35 +41,35 @@ class UserAccount implements UserInterface {
 	private $password;
 	
 	public function getId(): ?int {
-      		return $this->id;
-      	}
+		return $this->id;
+	}
 	
 	public function getFirstName(): ?string {
-      		return $this->firstName;
-      	}
+		return $this->firstName;
+	}
 	
 	public function setFirstName(?string $firstName): self {
-      		$this->firstName = $firstName;
-      		return $this;
-      	}
+		$this->firstName = $firstName;
+		return $this;
+	}
 	
 	public function getLastName(): ?string {
-      		return $this->lastName;
-      	}
+		return $this->lastName;
+	}
 	
 	public function setLastName(string $lastName): self {
-      		$this->lastName = $lastName;
-      		return $this;
-      	}
+		$this->lastName = $lastName;
+		return $this;
+	}
 	
 	public function getEmail(): ?string {
-      		return $this->email;
-      	}
+		return $this->email;
+	}
 	
 	public function setEmail(string $email): self {
-      		$this->email = $email;
-      		return $this;
-      	}
+		$this->email = $email;
+		return $this;
+	}
 	
 	/**
 	 * A visual identifier that represents this user.
@@ -77,47 +77,46 @@ class UserAccount implements UserInterface {
 	 * @see UserInterface
 	 */
 	public function getUsername(): string {
-      		return "$this->firstName $this->lastName <$this->email>";
-      	}
+		return "$this->firstName $this->lastName <$this->email>";
+	}
 	
 	/**
 	 * @see UserInterface
 	 */
 	public function getRoles(): array {
-      		$roles = $this->roles;
-      		$roles[] = 'ROLE_USER'; // Guarantee every user at least has ROLE_USER.
-      		return array_unique($roles);
-      	}
+		$roles = $this->roles;
+		$roles[] = 'ROLE_USER';						// Guarantee every user at least has ROLE_USER.
+		return array_unique($roles);
+	}
 	
 	public function setRoles(array $roles): self {
-      		$this->roles = $roles;
-      		return $this;
-      	}
+		$this->roles = $roles;
+		return $this;
+	}
 	
 	/**
 	 * @see UserInterface
 	 */
 	public function getPassword(): string {
-      		return (string) $this->password;
-      	}
+		return (string) $this->password;
+	}
 	
 	public function setPassword(string $password): self {
-      		$this->password = $password;
-      		return $this;
-      	}
+		$this->password = $password;
+		return $this;
+	}
 	
 	/**
 	 * @see UserInterface
 	 */
 	public function getSalt() {
-      		// Not needed when using the "bcrypt" algorithm in security.yaml.
-      	}
+		// Not needed when using the "bcrypt" algorithm in security.yaml.
+	}
 	
 	/**
 	 * @see UserInterface
 	 */
 	public function eraseCredentials() {
-      		// If you store any temporary, sensitive data on the user, clear it here
-      		// $this->plainPassword = null;
-      	}
+		// If you store any temporary, sensitive data on the user, clear it here.
+	}
 }
