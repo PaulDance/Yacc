@@ -93,7 +93,7 @@ class UserAccount implements UserInterface {
 	 */
 	public function getRoles(): array {
 		$roles = $this->roles;
-		$roles[] = 'ROLE_USER'; // Guarantee every user at least has ROLE_USER.
+		$roles[] = 'ROLE_USER';
 		return array_unique($roles);
 	}
 	

@@ -68,7 +68,7 @@ class Client {
 	public function removeComment(Comment $comment): self {
 		if ($this->comments->contains($comment)) {
 			$this->comments->removeElement($comment);
-			// set the owning side to null (unless already changed)
+			
 			if ($comment->getClient() === $this) {
 				$comment->setClient(null);
 			}
@@ -96,7 +96,7 @@ class Client {
 	public function removeReservation(Reservation $reservation): self {
 		if ($this->reservations->contains($reservation)) {
 			$this->reservations->removeElement($reservation);
-			// set the owning side to null (unless already changed)
+			
 			if ($reservation->getClient() === $this) {
 				$reservation->setClient(null);
 			}

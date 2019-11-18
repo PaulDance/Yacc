@@ -99,7 +99,7 @@ class Owner {
 	public function removeRoom(Room $room): self {
 		if ($this->rooms->contains($room)) {
 			$this->rooms->removeElement($room);
-			// set the owning side to null (unless already changed)
+			
 			if ($room->getOwner() === $this) {
 				$room->setOwner(null);
 			}
