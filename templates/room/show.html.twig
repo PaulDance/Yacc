@@ -41,8 +41,8 @@
 					<ul>
 				        {% for comment in room.getComments() %}
 					        <li>
-					        	{{ comment.client.getFirstName() }}
-					        	{{ comment.client.getLastName() }}:
+					        	{{ comment.getClient().getUserAccount().getFirstName() }}
+					        	{{ comment.getClient().getUserAccount().getLastName() }}:
 					        	{{ comment.getText() }}
 					        </li>
 						{% endfor %}
