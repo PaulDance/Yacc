@@ -23,9 +23,9 @@ class RegistrationFormType extends AbstractType {
 				->add('plainPassword',
 						PasswordType::class,
 						['mapped' => false,
-							'constraints' => [new NotBlank(new Length(['min' => 6,
-																		'minMessage' => 'Your password should be at least {{ limit }} characters',
-																		'max' => 4096]))]]);
+							'constraints' => [new Length(['min' => 6,
+														'minMessage' => 'Your password should be at least {{ limit }} characters long',
+														'max' => 4096])]]);
 	}
 	
 	public function configureOptions(OptionsResolver $resolver) {
