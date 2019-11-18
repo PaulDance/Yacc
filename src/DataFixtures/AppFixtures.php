@@ -15,8 +15,6 @@ use App\Entity\UserAccount;
 
 
 class AppFixtures extends Fixture {
-	// définit un nom de référence pour une instance de Region
-	public const IDF_REGION_REFERENCE = 'idf-region';
 	private $passwordEncoder;
 	
 	public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
@@ -30,11 +28,6 @@ class AppFixtures extends Fixture {
 						->setPresentation('La région française capitale.');
 		$manager->persist($idfRegion);
 		
-		$manager->flush();
-		// Une fois l'instance de Region sauvée en base de données,
-		// elle dispose d'un identifiant généré par Doctrine, et peut
-		// donc être sauvegardée comme future référence.
-		$this->addReference(self::IDF_REGION_REFERENCE, $idfRegion);
 		
 		$jeanMichelOwnerAccount = new UserAccount();
 		$jeanMichelOwner = (new Owner())
@@ -57,7 +50,7 @@ class AppFixtures extends Fixture {
 						->setPrice(10.0)
 						->setAddress('4 hameau de Bouzole')
 						->setOwner($jeanMichelOwner)
-						->addRegion($this->getReference(self::IDF_REGION_REFERENCE));
+						->addRegion($idfRegion);
 		$manager->persist($jmRoom1);
 		
 		$jmRoom2 = (new Room())
@@ -68,7 +61,7 @@ class AppFixtures extends Fixture {
 						->setPrice(70.0)
 						->setAddress('6 hameau de Bouzole')
 						->setOwner($jeanMichelOwner)
-						->addRegion($this->getReference(self::IDF_REGION_REFERENCE));
+						->addRegion($idfRegion);
 		$manager->persist($jmRoom2);
 		
 		
