@@ -11,24 +11,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class RegistrationFormType extends AbstractType {
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$builder->add('email')
+		$builder->add('firstName', TextType::class, ['required' => false])
+				->add('lastName', TextType::class, ['required' => true])
+				->add('email', EmailType::class, ['required' => true])
 				->add('agreeTerms',
 						CheckboxType::class,
 						['mapped' => false,
 							'constraints' => [new IsTrue(['message' => 'You should agree to our terms.'])]])
-				->add('plainPassword',
+				->add('password',
 						PasswordType::class,
-						['mapped' => false,
-							'constraints' => [new Length(['min' => 6,
+						['constraints' => [new Length(['min' => 6,
 														'minMessage' => 'Your password should be at least {{ limit }} characters long',
 														'max' => 4096])]]);
 	}
 	
 	public function configureOptions(OptionsResolver $resolver) {
-		$resolver->setDefaults(['data_class' => UserAccount::class,]);
+		$resolver->setDefaults(['data_class' => UserAccount::class]);
 	}
 }

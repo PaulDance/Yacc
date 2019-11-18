@@ -1,15 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'baselayout/no-page-header.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register{% endblock title %}
 
-{% block body %}
-    <h1>Register</h1>
-
+{% block main %}
+	<h1>Register</h1>
+	
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
-{% endblock %}
+		{{ form_row(registrationForm.firstName) }}
+		{{ form_row(registrationForm.lastName) }}
+	    {{ form_row(registrationForm.email) }}
+	    {{ form_row(registrationForm.password) }}
+	    {{ form_row(registrationForm.agreeTerms) }}
+		
+		<button class="btn">Register</button>
+	{{ form_end(registrationForm) }}
+{% endblock main %}
