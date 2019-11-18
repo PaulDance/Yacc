@@ -39,6 +39,14 @@ class UserAccount implements UserInterface {
 	 * @ORM\Column(type="string")
 	 */
 	private $password;
+	/**
+	 * @ORM\OneToOne(targetEntity="App\Entity\Client", mappedBy="userAccount", cascade={"persist", "remove"})
+	 */
+	private $possibleClient;
+	/**
+	 * @ORM\OneToOne(targetEntity="App\Entity\Owner", mappedBy="userAccount", cascade={"persist", "remove"})
+	 */
+	private $possibleOwner;
 	
 	public function getId(): ?int {
 		return $this->id;
@@ -85,7 +93,7 @@ class UserAccount implements UserInterface {
 	 */
 	public function getRoles(): array {
 		$roles = $this->roles;
-		$roles[] = 'ROLE_USER';						// Guarantee every user at least has ROLE_USER.
+		$roles[] = 'ROLE_USER'; // Guarantee every user at least has ROLE_USER.
 		return array_unique($roles);
 	}
 	
@@ -118,5 +126,33 @@ class UserAccount implements UserInterface {
 	 */
 	public function eraseCredentials() {
 		// If you store any temporary, sensitive data on the user, clear it here.
+	}
+	
+	public function getPossibleClient(): ?Client {
+		return $this->possibleClient;
+	}
+	
+	public function setPossibleClient(Client $possibleClient): self {
+		$this->possibleClient = $possibleClient;
+		
+		if ($possibleClient->getUserAccount() !== $this) {
+			$possibleClient->setUserAccount($this);
+		}
+		
+		return $this;
+	}
+	
+	public function getPossibleOwner(): ?Owner {
+		return $this->possibleOwner;
+	}
+	
+	public function setPossibleOwner(Owner $possibleOwner): self {
+		$this->possibleOwner = $possibleOwner;
+		
+		if ($possibleOwner->getUserAccount() !== $this) {
+			$possibleOwner->setUserAccount($this);
+		}
+		
+		return $this;
 	}
 }
