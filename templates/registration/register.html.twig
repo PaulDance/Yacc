@@ -5,13 +5,13 @@
 {% block main %}
 	{{ form_start(registrationForm) }}
 		<div class="row justify-content-center">
-			<div class="col-md-6">
+			<div class="col-md-7">
 				<h1 class="title h3 mb-3 font-weight-normal">Register your new {{ project_name }} account.</h1>
 			</div>
 		</div>
 		
 		<div class="row justify-content-center">
-			<div class="col-md-5">
+			<div class="col-md-4">
 				<div class="form-group bmd-form-group">
 					{{ form_label(registrationForm.firstName,
 									'First name',
@@ -24,7 +24,7 @@
 		                        }) }}
 				</div>
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-4">
 				<div class="form-group bmd-form-group">
 					{{ form_label(registrationForm.lastName,
 									'Last name',
@@ -40,7 +40,7 @@
 		</div>
 		
 		<div class="row justify-content-center">
-			<div class="col-md-5">
+			<div class="col-md-8">
 				<div class="form-group bmd-form-group">
 					{{ form_label(registrationForm.email,
 									'E-mail address',
@@ -56,7 +56,7 @@
 		</div>
 		
 		<div class="row justify-content-center">
-			<div class="col-md-5">
+			<div class="col-md-8">
 				<div class="form-group bmd-form-group">
 					{{ form_label(registrationForm.password,
 									'Password',
@@ -72,7 +72,7 @@
 		</div>
 		
 		<div class="row justify-content-center">
-			<div class="col-md-5">
+			<div class="col-md-7">
 				<div class="form-group bmd-form-group">
 					<button class="btn btn-md btn-primary" type="submit">Register</button>
 				</div>
