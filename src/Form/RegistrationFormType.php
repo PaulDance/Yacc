@@ -20,7 +20,7 @@ class RegistrationFormType extends AbstractType {
 				->add('password',
 						PasswordType::class,
 						['constraints' => [new Length(['min' => 6,
-														'minMessage' => 'Your password should be at least {{ limit }} characters long',
+														'minMessage' => 'Your password should be at least {{ limit }} characters long.',
 														'max' => 4096])]]);
 	}
 	
