@@ -1,54 +1,54 @@
 {% extends 'baselayout/no-page-header.html.twig' %}
 
-{% block title %}{{ project_name }} - Log in{% endblock %}
+{% block title %}{{ project_name }} - Log in{% endblock title %}
 
 {% block main %}
-<form method="post">
-	{% if error %}
+	<form method="post">
+		{% if error %}
+			<div class="row justify-content-center">
+				<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			</div>
+		{% endif %}
+		
+		{% if app.user %}
+			<div class="row justify-content-center mb-3">
+				You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
+			</div>
+		{% endif %}
+		
 		<div class="row justify-content-center">
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-		</div>
-	{% endif %}
-	
-	{% if app.user %}
-		<div class="row justify-content-center mb-3">
-			You are logged in as {{ app.user.username }}, <a href="{{ path('logout') }}">Logout</a>
-		</div>
-	{% endif %}
-	
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<h1 class="title h3 mb-3 font-weight-normal">Sign in to your {{ project_name }} account.</h1>
-		</div>
-	</div>
-	
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<div class="form-group bmd-form-group">
-				<label for="inputEmail" class="bmd-label-floating">E-mail</label>
-				<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required>
-				<span class="bmd-help">The e-mail linked to your account.</span>
+			<div class="col-md-6">
+				<h1 class="title h3 mb-3 font-weight-normal">Sign in to your {{ project_name }} account.</h1>
 			</div>
 		</div>
-	</div>
-	
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<div class="form-group bmd-form-group">
-				<label for="inputPassword" class="bmd-label-floating">Password</label>
-				<input type="password" name="password" id="inputPassword" class="form-control" required>
+		
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="form-group bmd-form-group">
+					<label for="inputEmail" class="bmd-label-floating">E-mail</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required>
+					<span class="bmd-help">The e-mail linked to your account.</span>
+				</div>
 			</div>
 		</div>
-	</div>
-	
-	<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-	
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<div class="form-group bmd-form-group">
-				<button class="btn btn-md btn-primary" type="submit">Sign in</button>
+		
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="form-group bmd-form-group">
+					<label for="inputPassword" class="bmd-label-floating">Password</label>
+					<input type="password" name="password" id="inputPassword" class="form-control" required>
+				</div>
 			</div>
 		</div>
-	</div>
-</form>
+		
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="form-group bmd-form-group">
+					<button class="btn btn-md btn-primary" type="submit">Sign in</button>
+				</div>
+			</div>
+		</div>
+	</form>
 {% endblock main %}
