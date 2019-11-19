@@ -3,14 +3,80 @@
 {% block title %}{{ project_name }} - Register{% endblock title %}
 
 {% block main %}
-	<h1>Register</h1>
-	
-    {{ form_start(registrationForm) }}
-		{{ form_row(registrationForm.firstName) }}
-		{{ form_row(registrationForm.lastName) }}
-	    {{ form_row(registrationForm.email) }}
-	    {{ form_row(registrationForm.password) }}
+	{{ form_start(registrationForm) }}
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<h1 class="title h3 mb-3 font-weight-normal">Register your new {{ project_name }} account.</h1>
+			</div>
+		</div>
 		
-		<button class="btn">Register</button>
+		<div class="row justify-content-center">
+			<div class="col-md-5">
+				<div class="form-group bmd-form-group">
+					{{ form_label(registrationForm.firstName,
+									'First name',
+					                {'label_attr': {'class': 'bmd-label-floating'}}) }}
+					{{ form_widget(registrationForm.firstName,
+					                {'attr': {'class': 'form-control'}}) }}
+					{{ form_help(registrationForm.firstName, {
+									'help': 'The first name can be omitted.',
+		                        	'help_attr': {'class': 'bmd-help'}
+		                        }) }}
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="form-group bmd-form-group">
+					{{ form_label(registrationForm.lastName,
+									'Last name',
+					                {'label_attr': {'class': 'bmd-label-floating'}}) }}
+					{{ form_widget(registrationForm.lastName,
+					                {'attr': {'class': 'form-control'}}) }}
+					{{ form_help(registrationForm.lastName, {
+									'help': 'The last name is mandatory.',
+		                        	'help_attr': {'class': 'bmd-help'}
+		                        }) }}
+				</div>
+			</div>
+		</div>
+		
+		<div class="row justify-content-center">
+			<div class="col-md-5">
+				<div class="form-group bmd-form-group">
+					{{ form_label(registrationForm.email,
+									'E-mail address',
+					                {'label_attr': {'class': 'bmd-label-floating'}}) }}
+					{{ form_widget(registrationForm.email,
+					                {'attr': {'class': 'form-control'}}) }}
+					{{ form_help(registrationForm.email, {
+									'help': 'The e-mail address that should be linked to your account.',
+		                        	'help_attr': {'class': 'bmd-help'}
+		                        }) }}
+				</div>
+			</div>
+		</div>
+		
+		<div class="row justify-content-center">
+			<div class="col-md-5">
+				<div class="form-group bmd-form-group">
+					{{ form_label(registrationForm.password,
+									'Password',
+					                {'label_attr': {'class': 'bmd-label-floating'}}) }}
+					{{ form_widget(registrationForm.password,
+					                {'attr': {'class': 'form-control'}}) }}
+					{{ form_help(registrationForm.password, {
+									'help': 'Your password should be at least 6 characters long.',
+		                        	'help_attr': {'class': 'bmd-help'}
+		                        }) }}
+				</div>
+			</div>
+		</div>
+		
+		<div class="row justify-content-center">
+			<div class="col-md-5">
+				<div class="form-group bmd-form-group">
+					<button class="btn btn-md btn-primary" type="submit">Register</button>
+				</div>
+			</div>
+		</div>
 	{{ form_end(registrationForm) }}
 {% endblock main %}
