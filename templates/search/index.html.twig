@@ -3,15 +3,15 @@
 {% block title %}{{ project_name }} - Search{% endblock title %}
 
 {% block main %}
-<div class="container">
-	{{ form(form) }}
-	
-	<div>
-		<ul>
-			{% for room in rooms %}
-				<li><a href="{{ path('room_show', {'id': room.id}) }}">{{ room.getSummary() }}</a></li>
-			{% endfor %}
-		</ul>
+	<div class="container">
+		{{ form(form) }}
+		
+		<div>
+			<ul>
+				{% for room in rooms %}
+					<li><a href="{{ path('room_show', {'id': room.id}) }}">{{ room.getSummary() }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
-</div>
 {% endblock main %}
