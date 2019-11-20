@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class SecurityController extends AbstractController {
@@ -13,9 +14,10 @@ class SecurityController extends AbstractController {
 	 * @Route("/login", name="login")
 	 */
 	public function login(AuthenticationUtils $authenticationUtils): Response {
-		// if ($this->getUser()) {
-		// return $this->redirectToRoute('target_path');
-		// }
+		if ($this->getUser()) {								// If a user is already logged in the current session,
+			return $this->redirectToRoute('home');			// he cannot log in a second time, so redirect to home.
+		}
+		
 		$error = $authenticationUtils->getLastAuthenticationError();
 		$lastUsername = $authenticationUtils->getLastUsername();
 		
