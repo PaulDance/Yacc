@@ -27,6 +27,10 @@ class RoomRepository extends ServiceEntityRepository {
 	 * 			and longer description.
 	 * @param string $regionSearch A string to look for in the rooms' regions'
 	 * 			names and longer presentation.
+	 * @param string $minPriceSearch A string representing a number that will
+	 * 			be less than any of the selected room prices.
+	 * @param string $maxPriceSearch A string representing a number that will
+	 * 			be greater than any of the selected room prices.
 	 * @return array The array of found {@see Room} objects
 	 */
 	public function findBySearch(string $roomSearch,
