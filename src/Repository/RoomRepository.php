@@ -13,7 +13,7 @@ use Doctrine\ORM\Query\Expr;
  * @method Room|null findOneBy(array $criteria, array $orderBy = null)
  * @method Room[] findAll()
  * @method Room[] findBy(array $criteria, array $orderBy = null, $limit = null,
- *         $offset = null)
+ *			$offset = null)
  */
 class RoomRepository extends ServiceEntityRepository {
 	public function __construct(ManagerRegistry $registry) {
@@ -38,12 +38,12 @@ class RoomRepository extends ServiceEntityRepository {
 								$qb->expr()->like($qb->expr()->lower('room.summary'),
 													$qb->expr()->lower("'%$roomSearch%'")),
 								$qb->expr()->like($qb->expr()->lower('room.description'),
-													$qb->expr()->lower("'%$roomSearch%'")))),
+													$qb->expr()->lower("'%$roomSearch%'"))),
 							$qb->expr()->orX(
 								$qb->expr()->like($qb->expr()->lower('region.name'),
-													$qb->expr()->lower("'%$regionSearch%'"))),
+													$qb->expr()->lower("'%$regionSearch%'")),
 								$qb->expr()->like($qb->expr()->lower('region.presentation'),
-													$qb->expr()->lower("'%$regionSearch%'")))
+													$qb->expr()->lower("'%$regionSearch%'")))))
 			->distinct();
 		
 		return $qb->getQuery()->execute();
