@@ -24,6 +24,19 @@
 			<script src="{{ asset('js/plugins/nouislider.min.js') }}" type="text/javascript"></script>
 			<script src="{{ asset('js/material-kit.js') }}" type="text/javascript"></script>
 			<script async defer src="https://buttons.github.io/buttons.js"></script>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					try {
+						materialKit.initFormExtendedDatetimepickers();
+					}
+					catch (exc) {}
+					
+					try {
+						materialKit.initSliders();
+					}
+					catch (exc) {}
+				});
+			</script>
 		{% endblock javascripts %}
 	</body>
 </html>
