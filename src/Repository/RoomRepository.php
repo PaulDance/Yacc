@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Room;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\Query\Expr;
+use Doctrine\DBAL\Types\Types;
 
 
 /**
@@ -36,15 +36,17 @@ class RoomRepository extends ServiceEntityRepository {
 			->where($qb->expr()->andX(
 							$qb->expr()->orX(
 								$qb->expr()->like($qb->expr()->lower('room.summary'),
-													$qb->expr()->lower("'%$roomSearch%'")),
+													$qb->expr()->lower(':roomSearchPattern')),
 								$qb->expr()->like($qb->expr()->lower('room.description'),
-													$qb->expr()->lower("'%$roomSearch%'"))),
+													$qb->expr()->lower(':roomSearchPattern'))),
 							$qb->expr()->orX(
 								$qb->expr()->like($qb->expr()->lower('region.name'),
-													$qb->expr()->lower("'%$regionSearch%'")),
+													$qb->expr()->lower(':regionSearchPattern')),
 								$qb->expr()->like($qb->expr()->lower('region.presentation'),
-													$qb->expr()->lower("'%$regionSearch%'")))))
-			->distinct();
+													$qb->expr()->lower(':regionSearchPattern')))))
+			->distinct()
+			->setParameter('roomSearchPattern', "%$roomSearch%", Types::STRING)
+			->setParameter('regionSearchPattern', "%$regionSearch%", Types::STRING);
 		
 		return $qb->getQuery()->execute();
 	}
