@@ -34,18 +34,14 @@ class RoomRepository extends ServiceEntityRepository {
 		
 		$qb->join('room.regions', 'region')
 			->where($qb->expr()->orX(
-								$qb->expr()->like($qb->expr()->lower('room.summary'),
-													$qb->expr()->lower(':roomSearchPattern')),
-								$qb->expr()->like($qb->expr()->lower('room.description'),
-													$qb->expr()->lower(':roomSearchPattern'))))
+								$qb->expr()->like('room.summaryLowercase', ':roomSearchPattern'),
+								$qb->expr()->like('room.descriptionLowercase', ':roomSearchPattern')))
 			->andWhere($qb->expr()->orX(
-								$qb->expr()->like($qb->expr()->lower('region.name'),
-													$qb->expr()->lower(':regionSearchPattern')),
-								$qb->expr()->like($qb->expr()->lower('region.presentation'),
-													$qb->expr()->lower(':regionSearchPattern'))))
+								$qb->expr()->like('region.nameLowercase', ':regionSearchPattern'),
+								$qb->expr()->like('region.presentationLowercase', ':regionSearchPattern')))
 			->distinct()
-			->setParameter('roomSearchPattern', "%$roomSearch%", Types::STRING)
-			->setParameter('regionSearchPattern', "%$regionSearch%", Types::STRING);
+			->setParameter('roomSearchPattern', '%' . mb_strtolower($roomSearch) . '%', Types::STRING)
+			->setParameter('regionSearchPattern', '%' . mb_strtolower($regionSearch) . '%', Types::STRING);
 		
 		return $qb->getQuery()->execute();
 	}
