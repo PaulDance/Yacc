@@ -24,7 +24,11 @@ class SearchController extends AbstractController {
 			if ($form->isValid()) {
 				return $this->redirectToRoute('search', [
 							'room' => $form->get('room')->getData(),
-							'region' => $form->get('region')->getData()
+							'region' => $form->get('region')->getData(),
+							'startDate' => $form->get('startDate')->getData(),
+							'endDate' => $form->get('endDate')->getData(),
+							'minPrice' => $form->get('minPrice')->getData(),
+							'maxPrice' => $form->get('maxPrice')->getData()
 						]);
 			}
 			else {
@@ -32,8 +36,12 @@ class SearchController extends AbstractController {
 			}
 		}
 		else {
-			dump($request->query->get('room', ''));
-			dump($request->query->get('region', ''));
+			dump('room: ' . $request->query->get('room'));
+			dump('region: ' . $request->query->get('region'));
+			dump('startDate: ' . $request->query->get('startDate'));
+			dump('endDate: ' . $request->query->get('endDate'));
+			dump('minPrice: ' . $request->query->get('minPrice'));
+			dump('maxPrice: ' . $request->query->get('maxPrice'));
 			
 			$foundRooms = $this->getDoctrine()
 								->getRepository(Room::class)
