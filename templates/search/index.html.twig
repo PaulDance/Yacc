@@ -3,15 +3,100 @@
 {% block title %}{{ project_name }} - Search{% endblock title %}
 
 {% block main %}
-	<div class="container">
-		{{ form(form) }}
-		
-		<div>
-			<ul>
-				{% for room in rooms %}
-					<li><a href="{{ path('room_show', {'id': room.id}) }}">{{ room.getSummary() }}</a></li>
-				{% endfor %}
-			</ul>
+	{{ form_start(form) }}
+		<div class="row justify-content-center">
+			<div class="col-md-4">
+				<div class="form-group bmd-form-group">
+					{{ form_label(form.room,
+									'Room',
+									{'label_attr': {'class': 'bmd-label-floating'}}) }}
+					{{ form_widget(form.room,
+									{'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+			
+			<div class="col-md-4">
+				<div class="form-group bmd-form-group">
+					{{ form_label(form.region,
+									'Region',
+									{'label_attr': {'class': 'bmd-label-floating'}}) }}
+					{{ form_widget(form.region,
+									{'attr': {'class': 'form-control'}}) }}
+				</div>
+			</div>
+			
+			<div class="col-md-2">
+				<div class="form-group bmd-form-group">
+					{{ form_label(form.startDate,
+									'Start date',
+									{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
+					{{ form_widget(form.startDate,
+									{'attr': {'class': 'form-control datetimepicker'}}) }}
+				</div>
+			</div>
+			
+			<div class="col-md-2">
+				<div class="form-group bmd-form-group">
+					{{ form_label(form.endDate,
+									'End date',
+									{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
+					{{ form_widget(form.endDate,
+									{'attr': {'class': 'form-control datetimepicker'}}) }}
+				</div>
+			</div>
 		</div>
+		
+		<div class="row align-items-center">
+			<div class="col-sm-3 justify-self-start">
+				<button type="submit" class="btn btn-md btn-primary">Search</button>
+			</div>
+			
+			<div class="col-md-6 justify-self-center">
+				<div id="priceRangeSlider" class="slider"></div>
+				{{ form_widget(form.minPrice) }}
+				{{ form_widget(form.maxPrice) }}
+			</div>
+		</div>
+	{{ form_end(form) }}
+	
+	<hr class="my-5"/>
+	<div class="col-md">
+		{% for room in rooms %}
+			<div class="row">
+				<a href="{{ path('room_show', {'id': room.id}) }}">{{ room.getSummary() }}</a>
+			</div>
+		{% endfor %}
 	</div>
 {% endblock main %}
+
+{% block additional_javascripts %}
+	<script type="text/javascript">
+		$('.datetimepicker').datetimepicker({
+			'format': 'DD/MM/YYYY'
+		});
+		
+		
+		var priceRangeSlider = document.getElementById("priceRangeSlider");
+		
+		noUiSlider.create(priceRangeSlider, {
+			'start': [20, 200],
+			'range': {
+				'min': [20],
+				'max': [200]
+			},
+			'step': 5,
+			'tooltips': true,
+			'connect': true
+		});
+		
+		updatePriceInputs = function() {
+			var rangePrices = priceRangeSlider.noUiSlider.get();
+			$("#{{ form.minPrice.vars.id }}").val(rangePrices[0]);
+			$("#{{ form.maxPrice.vars.id }}").val(rangePrices[1]);
+		};
+		
+		updatePriceInputs();
+		priceRangeSlider.noUiSlider.on('set', updatePriceInputs);
+	</script>
+{% endblock additional_javascripts %}
+
