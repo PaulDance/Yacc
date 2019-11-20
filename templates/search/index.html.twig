@@ -11,7 +11,8 @@
 									'Room',
 									{'label_attr': {'class': 'bmd-label-floating'}}) }}
 					{{ form_widget(form.room,
-									{'attr': {'class': 'form-control'}}) }}
+									{'value': roomSearch,
+									'attr': {'class': 'form-control'}}) }}
 				</div>
 			</div>
 			
@@ -21,7 +22,8 @@
 									'Region',
 									{'label_attr': {'class': 'bmd-label-floating'}}) }}
 					{{ form_widget(form.region,
-									{'attr': {'class': 'form-control'}}) }}
+									{'value': regionSearch,
+									'attr': {'class': 'form-control'}}) }}
 				</div>
 			</div>
 			
@@ -31,7 +33,8 @@
 									'Start date',
 									{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
 					{{ form_widget(form.startDate,
-									{'attr': {'class': 'form-control datetimepicker'}}) }}
+									{'value': startDateSearch,
+									'attr': {'class': 'form-control datetimepicker'}}) }}
 				</div>
 			</div>
 			
@@ -41,7 +44,8 @@
 									'End date',
 									{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
 					{{ form_widget(form.endDate,
-									{'attr': {'class': 'form-control datetimepicker'}}) }}
+									{'value': endDateSearch,
+									'attr': {'class': 'form-control datetimepicker'}}) }}
 				</div>
 			</div>
 		</div>
@@ -79,7 +83,7 @@
 		var priceRangeSlider = document.getElementById("priceRangeSlider");
 		
 		noUiSlider.create(priceRangeSlider, {
-			'start': [20, 200],
+			'start': [{{ minPriceSearch }}, {{ maxPriceSearch }}],
 			'range': {
 				'min': [20],
 				'max': [200]

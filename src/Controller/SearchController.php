@@ -52,7 +52,13 @@ class SearchController extends AbstractController {
 		return $this->render('search/index.html.twig', [
 								'controller_name' => 'SearchController',
 								'form' => $form->createView(),
-								'rooms' => $foundRooms
+								'rooms' => $foundRooms,
+								'roomSearch' => $request->query->get('room', ''),
+								'regionSearch' => $request->query->get('region', ''),
+								'startDateSearch' => $request->query->get('startDate', ''),
+								'endDateSearch' => $request->query->get('endDate', ''),
+								'minPriceSearch' => $request->query->get('minPrice', 20),
+								'maxPriceSearch' => $request->query->get('maxPrice', 200)
 							]);
 	}
 }
