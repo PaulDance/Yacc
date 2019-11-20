@@ -29,7 +29,10 @@ class RoomRepository extends ServiceEntityRepository {
 	 * 			names and longer presentation.
 	 * @return array The array of found {@see Room} objects
 	 */
-	public function findBySearch(string $roomSearch, string $regionSearch): array {
+	public function findBySearch(string $roomSearch,
+								string $regionSearch,
+								string $minPriceSearch,
+								string $maxPriceSearch): array {
 		$qb = $this->createQueryBuilder('room');
 		
 		$qb->join('room.regions', 'region')
@@ -39,9 +42,12 @@ class RoomRepository extends ServiceEntityRepository {
 			->andWhere($qb->expr()->orX(
 								$qb->expr()->like('region.nameLowercase', ':regionSearchPattern'),
 								$qb->expr()->like('region.presentationLowercase', ':regionSearchPattern')))
+			->andWhere($qb->expr()->between('room.price', ':minPriceSearch', ':maxPriceSearch'))
 			->distinct()
 			->setParameter('roomSearchPattern', '%' . mb_strtolower($roomSearch) . '%', Types::STRING)
-			->setParameter('regionSearchPattern', '%' . mb_strtolower($regionSearch) . '%', Types::STRING);
+			->setParameter('regionSearchPattern', '%' . mb_strtolower($regionSearch) . '%', Types::STRING)
+			->setParameter('minPriceSearch', $minPriceSearch, Types::STRING)
+			->setParameter('maxPriceSearch', $maxPriceSearch, Types::STRING);
 		
 		return $qb->getQuery()->execute();
 	}

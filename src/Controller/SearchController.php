@@ -46,7 +46,9 @@ class SearchController extends AbstractController {
 			$foundRooms = $this->getDoctrine()
 								->getRepository(Room::class)
 								->findBySearch($request->query->get('room', ''),
-												$request->query->get('region', ''));
+												$request->query->get('region', ''),
+												$request->query->get('minPrice', '0'),
+												$request->query->get('maxPrice', '1000000000'));
 		}
 		
 		return $this->render('search/index.html.twig', [
