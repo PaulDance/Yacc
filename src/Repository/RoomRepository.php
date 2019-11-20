@@ -33,17 +33,16 @@ class RoomRepository extends ServiceEntityRepository {
 		$qb = $this->createQueryBuilder('room');
 		
 		$qb->join('room.regions', 'region')
-			->where($qb->expr()->andX(
-							$qb->expr()->orX(
+			->where($qb->expr()->orX(
 								$qb->expr()->like($qb->expr()->lower('room.summary'),
 													$qb->expr()->lower(':roomSearchPattern')),
 								$qb->expr()->like($qb->expr()->lower('room.description'),
-													$qb->expr()->lower(':roomSearchPattern'))),
-							$qb->expr()->orX(
+													$qb->expr()->lower(':roomSearchPattern'))))
+			->andWhere($qb->expr()->orX(
 								$qb->expr()->like($qb->expr()->lower('region.name'),
 													$qb->expr()->lower(':regionSearchPattern')),
 								$qb->expr()->like($qb->expr()->lower('region.presentation'),
-													$qb->expr()->lower(':regionSearchPattern')))))
+													$qb->expr()->lower(':regionSearchPattern'))))
 			->distinct()
 			->setParameter('roomSearchPattern', "%$roomSearch%", Types::STRING)
 			->setParameter('regionSearchPattern', "%$regionSearch%", Types::STRING);
