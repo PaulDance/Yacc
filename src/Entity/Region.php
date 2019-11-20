@@ -22,9 +22,21 @@ class Region {
 	 */
 	private $name;
 	/**
+	 * @var string The lowercase version of the region's name.
+	 * Set automatically when assigning a new name. A getter is available.
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $nameLowercase;
+	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $presentation;
+	/**
+	 * @var string The lowercase version of the region's presentation.
+	 * Set automatically when assigning a new presentation. A getter is available.
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $presentationLowercase;
 	/**
 	 * @ORM\Column(type="string", length=2, nullable=true)
 	 */
@@ -56,8 +68,23 @@ class Region {
 		return $this->name;
 	}
 	
+	/**
+	 * @return string|NULL The lowercase version of the region's name.
+	 */
+	public function getNameLowercase(): ?string {
+		return $this->nameLowercase;
+	}
+	
+	/**
+	 * Sets the region's name to the new given value.
+	 * Also computes and stores the lowercase version separately.
+	 *
+	 * @param string $name The new value.
+	 * @return self The underlying Region object.
+	 */
 	public function setName(string $name): self {
 		$this->name = $name;
+		$this->nameLowercase = mb_strtolower($this->name);
 		return $this;
 	}
 	
@@ -65,8 +92,23 @@ class Region {
 		return $this->presentation;
 	}
 	
+	/**
+	 * @return string|NULL The lowercase version of the region's presentation.
+	 */
+	public function getPresentationLowercase(): ?string {
+		return $this->presentationLowercase;
+	}
+	
+	/**
+	 * Sets the region's presentation to the new given value.
+	 * Also computes and stores the lowercase version separately.
+	 *
+	 * @param string $presentation The new value.
+	 * @return self The underlying Region object.
+	 */
 	public function setPresentation(?string $presentation): self {
 		$this->presentation = $presentation;
+		$this->presentationLowercase = mb_strtolower($this->presentation);
 		return $this;
 	}
 	

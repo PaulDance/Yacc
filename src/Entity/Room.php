@@ -22,9 +22,21 @@ class Room {
 	 */
 	private $summary;
 	/**
+	 * @var string The lowercase version of the room's summary.
+	 * Set automatically when assigning a new summary. A getter is available.
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $summaryLowercase;
+	/**
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $description;
+	/**
+	 * @var string The lowercase version of the room's description.
+	 * Set automatically when assigning a new description. A getter is available.
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	private $descriptionLowercase;
 	/**
 	 * @ORM\Column(type="smallint")
 	 */
@@ -83,8 +95,23 @@ class Room {
 		return $this->summary;
 	}
 	
+	/**
+	 * @return string|NULL The lowercase version of the room's summary.
+	 */
+	public function getSummaryLowercase(): ?string {
+		return $this->summaryLowercase;
+	}
+	
+	/**
+	 * Sets the room's summary to the new given value.
+	 * Also computes and stores the lowercase version separately.
+	 * 
+	 * @param string $summary The new value.
+	 * @return self The underlying Room object.
+	 */
 	public function setSummary(?string $summary): self {
 		$this->summary = $summary;
+		$this->summaryLowercase = mb_strtolower($this->summary);
 		return $this;
 	}
 	
@@ -92,8 +119,23 @@ class Room {
 		return $this->description;
 	}
 	
+	/**
+	 * @return string|NULL The lowercase version of the room's description.
+	 */
+	public function getDescriptionLowercase(): ?string {
+		return $this->descriptionLowercase;
+	}
+	
+	/**
+	 * Sets the room's description to the new given value.
+	 * Also computes and stores the lowercase version separately.
+	 *
+	 * @param string $description The new value.
+	 * @return self The underlying Room object.
+	 */
 	public function setDescription(?string $description): self {
 		$this->description = $description;
+		$this->descriptionLowercase = mb_strtolower($this->description);
 		return $this;
 	}
 	
