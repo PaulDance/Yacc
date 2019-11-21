@@ -12,13 +12,22 @@ use App\Entity\Client;
 use App\Entity\Comment;
 use App\Entity\Reservation;
 use App\Entity\UserAccount;
+use App\Service\FileUploader;
+use App\Entity\ImageAsset;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 class AppFixtures extends Fixture {
 	private $passwordEncoder;
+	private $fileUploader;
+	private $container;
 	
-	public function __construct(UserPasswordEncoderInterface $passwordEncoder) {
+	public function __construct(UserPasswordEncoderInterface $passwordEncoder,
+								FileUploader $fileUploader,
+								ContainerInterface $container) {
 		$this->passwordEncoder = $passwordEncoder;
+		$this->fileUploader = $fileUploader;
+		$this->container = $container;
 	}
 	
 	public function load(ObjectManager $manager) {
@@ -52,7 +61,20 @@ class AppFixtures extends Fixture {
 						->setAddress('4 hameau de Bouzole')
 						->setOwner($jeanMichelOwner)
 						->addRegion($idfRegion);
-		$manager->persist($jmRoom1);
+		$manager->persist($jmRoom1);							// Making the room object persist
+		$manager->flush();										// and flushing it to the db is required for the
+		$jmRoom1->addImageAsset((new ImageAsset())				// object to have a db id used for the images.
+									->getSetFromURL('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Ferme_de_Sougey.jpg/1200px-Ferme_de_Sougey.jpg',
+													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom1,
+													$this->container,  $this->fileUploader))
+				->addImageAsset((new ImageAsset())
+									->getSetFromURL('https://www.lafermedesmarmottes.com/wp-content/uploads/2015/01/ferme-des-marmottes-poules.jpg',
+													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom1,
+													$this->container,  $this->fileUploader))
+				->addImageAsset((new ImageAsset())
+									->getSetFromURL('https://www.lafermedesmarmottes.com/wp-content/uploads/2015/01/la-ferme-des-marmottes-visites-vercors.jpg',
+													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom1,
+													$this->container,  $this->fileUploader));
 		
 		$jmRoom2 = (new Room())
 						->setSummary('Belle chambre spacieuse à Évry')
@@ -64,6 +86,22 @@ class AppFixtures extends Fixture {
 						->setOwner($jeanMichelOwner)
 						->addRegion($idfRegion);
 		$manager->persist($jmRoom2);
+		$manager->flush();
+// 		$jmRoom2->addImageAsset((new ImageAsset())
+// 									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/'
+// 														. 'id-p-20181029-molteni-05-tt-width-1120-height-718-crop-1-bgcolor-ffffff.jpg',
+// 													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
+// 													$this->container,  $this->fileUploader))
+// 				->addImageAsset((new ImageAsset())
+// 									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/id-p-'
+// 														.'20181029-molteni-03-tt-width-740-height-474-crop-1-bgcolor-ffffff-except_gif-1.jpg',
+// 													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
+// 													$this->container,  $this->fileUploader))
+// 				->addImageAsset((new ImageAsset())
+// 									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/id-p-'
+// 														.'20181029-molteni-01-tt-width-740-height-474-crop-1-bgcolor-ffffff-except_gif-1.jpg',
+// 													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
+// 													$this->container,  $this->fileUploader));
 		
 		
 		$geoffroyZardiClientAccount = new UserAccount();
