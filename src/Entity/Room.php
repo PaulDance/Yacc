@@ -286,7 +286,7 @@ class Room {
 	public function addImageAsset(ImageAsset $imageAsset): self {
 		if (!$this->imageAssets->contains($imageAsset)) {
 			$this->imageAssets[] = $imageAsset;
-			$imageAsset->setPossibleRoom($this);
+			$imageAsset->setRoom($this);
 		}
 		
 		return $this;
@@ -297,7 +297,7 @@ class Room {
 			$this->imageAssets->removeElement($imageAsset);
 			
 			if ($imageAsset->getPossibleRoom() === $this) {
-				$imageAsset->setPossibleRoom(null);
+				$imageAsset->setRoom(null);
 			}
 		}
 		
