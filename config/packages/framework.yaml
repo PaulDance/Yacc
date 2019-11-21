@@ -16,4 +16,5 @@ framework:
         log: true
     
     assets:
-        base_path: 'material-kit/assets'
+        # assets_base_path is defined in services.yaml > parameters
+        base_path: '%assets_base_path%'
