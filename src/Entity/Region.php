@@ -23,7 +23,7 @@ class Region {
 	private $name;
 	/**
 	 * @var string The lowercase version of the region's name.
-	 * Set automatically when assigning a new name. A getter is available.
+	 *      Set automatically when assigning a new name. A getter is available.
 	 * @ORM\Column(type="string", length=255)
 	 */
 	private $nameLowercase;
@@ -33,7 +33,8 @@ class Region {
 	private $presentation;
 	/**
 	 * @var string The lowercase version of the region's presentation.
-	 * Set automatically when assigning a new presentation. A getter is available.
+	 *      Set automatically when assigning a new presentation. A getter is
+	 *      available.
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $presentationLowercase;
@@ -45,9 +46,14 @@ class Region {
 	 * @ORM\ManyToMany(targetEntity="App\Entity\Room", mappedBy="regions")
 	 */
 	private $rooms;
+	/**
+	 * @ORM\OneToMany(targetEntity="App\Entity\ImageAsset", mappedBy="possibleRegion")
+	 */
+	private $imageAssets;
 	
 	public function __construct() {
 		$this->rooms = new ArrayCollection();
+		$this->imageAssets = new ArrayCollection();
 	}
 	
 	/**
@@ -141,6 +147,34 @@ class Region {
 		if ($this->rooms->contains($room)) {
 			$this->rooms->removeElement($room);
 			$room->removeRegion($this);
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * @return Collection|ImageAsset[]
+	 */
+	public function getImageAssets(): Collection {
+		return $this->imageAssets;
+	}
+	
+	public function addImageAsset(ImageAsset $imageAsset): self {
+		if (!$this->imageAssets->contains($imageAsset)) {
+			$this->imageAssets[] = $imageAsset;
+			$imageAsset->setRegion($this);
+		}
+		
+		return $this;
+	}
+	
+	public function removeImageAsset(ImageAsset $imageAsset): self {
+		if ($this->imageAssets->contains($imageAsset)) {
+			$this->imageAssets->removeElement($imageAsset);
+			
+			if ($imageAsset->getPossibleRegion() === $this) {
+				$imageAsset->setRegion(null);
+			}
 		}
 		
 		return $this;
