@@ -85,8 +85,8 @@
 		noUiSlider.create(priceRangeSlider, {
 			'start': [{{ minPriceSearch }}, {{ maxPriceSearch }}],
 			'range': {
-				'min': [20],
-				'max': [200]
+				'min': [{{ minMinPrice }}],
+				'max': [{{ maxMaxPrice }}]
 			},
 			'step': 5,
 			'tooltips': true,

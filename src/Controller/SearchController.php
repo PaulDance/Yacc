@@ -17,6 +17,8 @@ class SearchController extends AbstractController {
 	 * @Route("", name="search", methods={"GET", "POST"})
 	 */
 	public function searchForm(Request $request) {
+		$roomRepository = $this->getDoctrine()->getRepository(Room::class);
+		$minMaxPrices = $roomRepository->findMinMaxPrices();
 		$form = $this->createForm(AdvancedSearchType::class);
 		$form->handleRequest($request);
 		
@@ -43,12 +45,10 @@ class SearchController extends AbstractController {
 			dump('minPrice: ' . $request->query->get('minPrice'));
 			dump('maxPrice: ' . $request->query->get('maxPrice'));
 			
-			$foundRooms = $this->getDoctrine()
-								->getRepository(Room::class)
-								->findBySearch($request->query->get('room', ''),
-												$request->query->get('region', ''),
-												$request->query->get('minPrice', '0'),
-												$request->query->get('maxPrice', '1000000000'));
+			$foundRooms = $roomRepository->findBySearch($request->query->get('room', ''),
+														$request->query->get('region', ''),
+														$request->query->get('minPrice', strval($minMaxPrices['minPrice'])),
+														$request->query->get('maxPrice', strval($minMaxPrices['maxPrice'])));
 		}
 		
 		return $this->render('search/index.html.twig', [
@@ -59,8 +59,10 @@ class SearchController extends AbstractController {
 								'regionSearch' => $request->query->get('region', ''),
 								'startDateSearch' => $request->query->get('startDate', ''),
 								'endDateSearch' => $request->query->get('endDate', ''),
-								'minPriceSearch' => $request->query->get('minPrice', 20),
-								'maxPriceSearch' => $request->query->get('maxPrice', 200)
+								'minPriceSearch' => $request->query->get('minPrice', $minMaxPrices['minPrice']),
+								'maxPriceSearch' => $request->query->get('maxPrice', $minMaxPrices['maxPrice']),
+								'minMinPrice' => $minMaxPrices['minPrice'],
+								'maxMaxPrice' => $minMaxPrices['maxPrice']
 							]);
 	}
 }
