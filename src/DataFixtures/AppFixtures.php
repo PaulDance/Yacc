@@ -87,21 +87,21 @@ class AppFixtures extends Fixture {
 						->addRegion($idfRegion);
 		$manager->persist($jmRoom2);
 		$manager->flush();
-// 		$jmRoom2->addImageAsset((new ImageAsset())
-// 									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/'
-// 														. 'id-p-20181029-molteni-05-tt-width-1120-height-718-crop-1-bgcolor-ffffff.jpg',
-// 													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
-// 													$this->container,  $this->fileUploader))
-// 				->addImageAsset((new ImageAsset())
-// 									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/id-p-'
-// 														.'20181029-molteni-03-tt-width-740-height-474-crop-1-bgcolor-ffffff-except_gif-1.jpg',
-// 													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
-// 													$this->container,  $this->fileUploader))
-// 				->addImageAsset((new ImageAsset())
-// 									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/id-p-'
-// 														.'20181029-molteni-01-tt-width-740-height-474-crop-1-bgcolor-ffffff-except_gif-1.jpg',
-// 													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
-// 													$this->container,  $this->fileUploader));
+		$jmRoom2->addImageAsset((new ImageAsset())
+									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/'
+														. 'id-p-20181029-molteni-05-tt-width-1120-height-718-crop-1-bgcolor-ffffff.jpg',
+													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
+													$this->container,  $this->fileUploader))
+				->addImageAsset((new ImageAsset())
+									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/id-p-'
+														.'20181029-molteni-03-tt-width-740-height-474-crop-1-bgcolor-ffffff-except_gif-1.jpg',
+													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
+													$this->container,  $this->fileUploader))
+				->addImageAsset((new ImageAsset())
+									->getSetFromURL('https://ideat.thegoodhub.com/wp-content/thumbnails/uploads/sites/3/2018/10/id-p-'
+														.'20181029-molteni-01-tt-width-740-height-474-crop-1-bgcolor-ffffff-except_gif-1.jpg',
+													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
+													$this->container,  $this->fileUploader));
 		
 		
 		$geoffroyZardiClientAccount = new UserAccount();
