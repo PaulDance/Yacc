@@ -12,6 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Room {
 	/**
+	 * The configuration variable pointing to the room images directory,
+	 * relatively to the public assets base path.
+	 */
+	public const imgDirRelConfig = 'room_img_dir_rel';
+	/**
+	 * The configuration variable pointing to the room images directory,
+	 * relatively to the project's root path ("absolute path").
+	 */
+	public const imgDirAbsConfig = 'room_img_dir_abs';
+	/**
 	 * @ORM\Id()
 	 * @ORM\GeneratedValue()
 	 * @ORM\Column(type="integer")
@@ -23,7 +33,7 @@ class Room {
 	private $summary;
 	/**
 	 * @var string The lowercase version of the room's summary.
-	 * Set automatically when assigning a new summary. A getter is available.
+	 *      Set automatically when assigning a new summary. A getter is available.
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $summaryLowercase;
@@ -33,7 +43,8 @@ class Room {
 	private $description;
 	/**
 	 * @var string The lowercase version of the room's description.
-	 * Set automatically when assigning a new description. A getter is available.
+	 *      Set automatically when assigning a new description. A getter is
+	 *      available.
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	private $descriptionLowercase;
@@ -70,11 +81,16 @@ class Room {
 	 * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="rooms")
 	 */
 	private $reservations;
+	/**
+	 * @ORM\OneToMany(targetEntity="App\Entity\ImageAsset", mappedBy="possibleRoom", cascade={"persist"})
+	 */
+	private $imageAssets;
 	
 	public function __construct() {
 		$this->regions = new ArrayCollection();
 		$this->comments = new ArrayCollection();
 		$this->reservations = new ArrayCollection();
+		$this->imageAssets = new ArrayCollection();
 	}
 	
 	/**
@@ -105,7 +121,7 @@ class Room {
 	/**
 	 * Sets the room's summary to the new given value.
 	 * Also computes and stores the lowercase version separately.
-	 * 
+	 *
 	 * @param string $summary The new value.
 	 * @return self The underlying Room object.
 	 */
@@ -255,6 +271,34 @@ class Room {
 		if ($this->reservations->contains($reservation)) {
 			$this->reservations->removeElement($reservation);
 			$reservation->removeRoom($this);
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * @return Collection|ImageAsset[]
+	 */
+	public function getImageAssets(): Collection {
+		return $this->imageAssets;
+	}
+	
+	public function addImageAsset(ImageAsset $imageAsset): self {
+		if (!$this->imageAssets->contains($imageAsset)) {
+			$this->imageAssets[] = $imageAsset;
+			$imageAsset->setPossibleRoom($this);
+		}
+		
+		return $this;
+	}
+	
+	public function removeImageAsset(ImageAsset $imageAsset): self {
+		if ($this->imageAssets->contains($imageAsset)) {
+			$this->imageAssets->removeElement($imageAsset);
+			
+			if ($imageAsset->getPossibleRoom() === $this) {
+				$imageAsset->setPossibleRoom(null);
+			}
 		}
 		
 		return $this;
