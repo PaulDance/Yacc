@@ -55,4 +55,55 @@ class RoomRepository extends ServiceEntityRepository {
 		
 		return $qb->getQuery()->execute();
 	}
+	
+	/**
+	 * Queries the database in order to find the lowest room
+	 * price available without any sort of restrictive criteria.
+	 * 
+	 * @return float The minimum price value.
+	 */
+	public function findMinPrice(): float {
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		
+		$qb->select($qb->expr()->min('room.price'))
+			->from(Room::class, 'room');
+		
+		return floatval($qb->getQuery()->execute()[0][1]);
+	}
+	
+	/**
+	 * Queries the database in order to find the highest room
+	 * price available without any sort of restrictive criteria.
+	 *
+	 * @return float The maximum price value.
+	 */
+	public function findMaxPrice(): float {
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		
+		$qb->select($qb->expr()->max('room.price'))
+			->from(Room::class, 'room');
+		
+		return floatval($qb->getQuery()->execute()[0][1]);
+	}
+	
+	/**
+	 * Queries the database in order to find both the lowest
+	 * and highest room prices available at the same time,
+	 * without any sort of restrictive criteria.
+	 * 
+	 * @return array A map array in which 'minPrice' will be
+	 *			associated with the minimum value as a float
+	 *			and 'maxPrice' with the maximum one, a float
+	 *			as well.
+	 */
+	public function findMinMaxPrices(): array {
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		
+		$qb->select($qb->expr()->min('room.price'), $qb->expr()->max('room.price'))
+			->from(Room::class, 'room');
+		
+		$minMaxStringPrices = $qb->getQuery()->execute()[0];
+		return ['minPrice' => floatval($minMaxStringPrices[1]),
+				'maxPrice' => floatval($minMaxStringPrices[2])];
+	}
 }
