@@ -28,3 +28,5 @@ composer.lock
 
 # Image resource files
 public/assets/img
+# Temporary directory
+tmp
