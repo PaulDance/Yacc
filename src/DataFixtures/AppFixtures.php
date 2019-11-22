@@ -36,6 +36,22 @@ class AppFixtures extends Fixture {
 						->setName('Île-de-France')
 						->setPresentation('La région française capitale.');
 		$manager->persist($idfRegion);
+		$manager->flush();
+		$idfRegion->addImageAsset((new ImageAsset())
+										->getSetFromURL('https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Champ_de_bl%C3%A9_'
+															. 'Seine-et-Marne.jpg/1280px-Champ_de_bl%C3%A9_Seine-et-Marne.jpg',
+														Region::imgDirRelConfig, Region::imgDirAbsConfig, $idfRegion,
+														$this->container,  $this->fileUploader))
+				->addImageAsset((new ImageAsset())
+										->getSetFromURL('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Bercy'
+															. '%2C_Paris_01.jpg/1280px-Bercy%2C_Paris_01.jpg',
+														Region::imgDirRelConfig, Region::imgDirAbsConfig, $idfRegion,
+														$this->container,  $this->fileUploader))
+				->addImageAsset((new ImageAsset())
+										->getSetFromURL('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Gorges_de'
+															. '_Franchard_7.JPG/1280px-Gorges_de_Franchard_7.JPG',
+														Region::imgDirRelConfig, Region::imgDirAbsConfig, $idfRegion,
+														$this->container,  $this->fileUploader));
 		
 		
 		$jeanMichelOwnerAccount = new UserAccount();
