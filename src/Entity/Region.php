@@ -47,7 +47,7 @@ class Region {
 	 */
 	private $rooms;
 	/**
-	 * @ORM\OneToMany(targetEntity="App\Entity\ImageAsset", mappedBy="possibleRegion")
+	 * @ORM\OneToMany(targetEntity="App\Entity\ImageAsset", mappedBy="possibleRegion", cascade={"persist"})
 	 */
 	private $imageAssets;
 	
