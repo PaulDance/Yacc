@@ -43,6 +43,7 @@ clean:
 	rm -rf $(tmpDir)/*
 	rm -rf $(logDir)/*
 	@./bin/console cache:clear --no-warmup -vv
+	@./bin/console cache:clear --no-warmup --no-debug -vv
 
 .PHONY: clean-all
 clean-all: clean
