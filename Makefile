@@ -9,6 +9,13 @@ tmpDir = ./tmp
 logDir = ./var/log
 
 
+.PHONY: install
+install: init
+	@set -e
+	@composer install -vv
+	@composer clear-cache -vv
+	@./bin/console assets:install -vv
+
 .PHONY: init
 init:
 	@set -e
