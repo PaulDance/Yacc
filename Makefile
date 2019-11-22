@@ -9,8 +9,16 @@ tmpDir = ./tmp
 logDir = ./var/log
 
 
+.PHONY: init
+init:
+	@set -e
+	@mkdir -v -p -m=755 $(tmpDir)
+	@mkdir -v -p -m=755 $(roomImgDir)
+	@mkdir -v -p -m=755 $(regionImgDir)
+
+
 .PHONY: db
-db: clean-all
+db: clean-all init
 	@set -e
 	@./bin/console doctrine:database:create -vv
 	@./bin/console doctrine:schema:create -vv
