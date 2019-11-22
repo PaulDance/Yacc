@@ -16,6 +16,12 @@ install: init
 	@composer clear-cache -vv
 	@./bin/console assets:install -vv
 
+.PHONY: run
+run: clean
+	@set -e
+	@./bin/console server:run -vvv
+
+
 .PHONY: init
 init:
 	@set -e
