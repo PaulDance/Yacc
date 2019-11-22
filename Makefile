@@ -2,6 +2,7 @@
 assetsDir = ./public/assets
 imgDir = $(assetsDir)/img
 roomImgDir = $(imgDir)/room
+regionImgDir = $(imgDir)/region
 
 dbPath = ./var/data.db
 tmpDir = ./tmp
@@ -26,5 +27,6 @@ clean:
 clean-all: clean
 	@set -e
 	rm -rf $(roomImgDir)/*
+	rm -rf $(regionImgDir)/*
 	rm -f $(dbPath)
 

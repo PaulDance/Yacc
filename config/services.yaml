@@ -5,13 +5,21 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     tmp_dir: 'tmp'
+    
     assets_base_path: 'assets'
     assets_base_path_abs: 'public/%assets_base_path%'
+    
     img_dir: 'img'
     img_dir_abs: '%assets_base_path_abs%/%img_dir%'
+    
     room_img_dir: 'room'
     room_img_dir_rel: '%img_dir%/%room_img_dir%'
     room_img_dir_abs: '%img_dir_abs%/%room_img_dir%'
+    
+    region_img_dir: 'region'
+    region_img_dir_rel: '%img_dir%/%region_img_dir%'
+    region_img_dir_abs: '%img_dir_abs%/%region_img_dir%'
+
 
 services:
     # default configuration for services in *this* file

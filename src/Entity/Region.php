@@ -12,6 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Region {
 	/**
+	 * The configuration variable pointing to the region images directory,
+	 * relatively to the public assets base path.
+	 */
+	public const imgDirRelConfig = 'region_img_dir_rel';
+	/**
+	 * The configuration variable pointing to the region images directory,
+	 * relatively to the project's root path ("absolute path").
+	 */
+	public const imgDirAbsConfig = 'region_img_dir_abs';
+	/**
 	 * @ORM\Id()
 	 * @ORM\GeneratedValue()
 	 * @ORM\Column(type="integer")
