@@ -35,9 +35,9 @@ class AppFixtures extends Fixture {
 						->setCountry('FR')
 						->setName('Île-de-France')
 						->setPresentation('La région française capitale.');
-		$manager->persist($idfRegion);
-		$manager->flush();
-		$idfRegion->addImageAsset((new ImageAsset())
+		$manager->persist($idfRegion);							// Making the region object persist
+		$manager->flush();										// and flushing it to the db is required for the
+		$idfRegion->addImageAsset((new ImageAsset())			// object to have a db id used for the images.
 										->getSetFromURL('https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Champ_de_bl%C3%A9_'
 															. 'Seine-et-Marne.jpg/1280px-Champ_de_bl%C3%A9_Seine-et-Marne.jpg',
 														Region::imgDirRelConfig, Region::imgDirAbsConfig, $idfRegion,
@@ -77,9 +77,9 @@ class AppFixtures extends Fixture {
 						->setAddress('4 hameau de Bouzole')
 						->setOwner($jeanMichelOwner)
 						->addRegion($idfRegion);
-		$manager->persist($jmRoom1);							// Making the room object persist
-		$manager->flush();										// and flushing it to the db is required for the
-		$jmRoom1->addImageAsset((new ImageAsset())				// object to have a db id used for the images.
+		$manager->persist($jmRoom1);
+		$manager->flush();
+		$jmRoom1->addImageAsset((new ImageAsset())
 									->getSetFromURL('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Ferme_de_Sougey.jpg/1200px-Ferme_de_Sougey.jpg',
 													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom1,
 													$this->container,  $this->fileUploader))
