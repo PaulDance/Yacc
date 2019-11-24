@@ -14,6 +14,7 @@ could help you find the correct version for your system.
 * DOM, SimpleXML, WDDX, XML, and XSL module for PHP (`php-xml`).
 * SQLite3 module for PHP (`php-sqlite3`).
 * CURL module for PHP (`php-curl`).
+* Internationalisation module for PHP (`php-intl`).
 
 
 ## Installation
