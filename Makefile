@@ -13,6 +13,7 @@ cacheDir = ./var/cache
 .PHONY: install
 install: init
 	@set -e
+	@./bin/get-symfony
 	@composer install -vv
 	@composer clear-cache -vv
 	@./bin/console assets:install -vv

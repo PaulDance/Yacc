@@ -18,6 +18,9 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
+# Symfony local binary
+bin/symfony
+
 # Composer
 composer.lock
 
