@@ -21,8 +21,7 @@ install: init
 .PHONY: update
 update:
 	@set -e
-	rm -f ./bin/symfony
-	@./bin/get-symfony.sh
+	@./bin/symfony self:update -vv
 	@composer update -vv
 	@composer clear-cache -vv
 
