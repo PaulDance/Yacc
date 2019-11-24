@@ -18,6 +18,14 @@ install: init
 	@composer clear-cache -vv
 	@./bin/console assets:install -vv
 
+.PHONY: update
+update:
+	@set -e
+	rm -f ./bin/symfony
+	@./bin/get-symfony.sh
+	@composer update -vv
+	@composer clear-cache -vv
+
 .PHONY: run
 run: clean
 	@set -e
