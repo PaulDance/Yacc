@@ -7,6 +7,7 @@ regionImgDir = $(imgDir)/region
 dbPath = ./var/data.db
 tmpDir = ./tmp
 logDir = ./var/log
+cacheDir = ./var/cache
 
 
 .PHONY: install
@@ -42,8 +43,7 @@ clean:
 	@set -e
 	rm -rf $(tmpDir)/*
 	rm -rf $(logDir)/*
-	@./bin/console cache:clear --no-warmup -vv
-	@./bin/console cache:clear --no-warmup --no-debug -vv
+	rm -rf $(cacheDir)/*
 
 .PHONY: clean-all
 clean-all: clean
