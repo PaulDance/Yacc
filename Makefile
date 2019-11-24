@@ -22,6 +22,7 @@ install: init
 run: clean
 	@set -e
 	@touch $(logDir)/dev.log
+	@./bin/console cache:warmup -vv
 	@./bin/symfony server:start --no-tls -vv
 
 
