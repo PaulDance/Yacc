@@ -162,13 +162,13 @@ class AppFixtures extends Fixture {
 																							'algpasswd')));
 		$manager->persist($alexisLeGlaunecClient);
 		
-		$algJmRoom1Reservation = (new Reservation())
+		$algJmRoom1n2Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 17))
 										->setEndDate((new \DateTime())->setDate(2019, 11, 23))
 										->setClient($alexisLeGlaunecClient)
 										->addRoom($jmRoom1)
 										->addRoom($jmRoom2);
-		$manager->persist($algJmRoom1Reservation);
+		$manager->persist($algJmRoom1n2Reservation);
 		
 		
 		$manager->flush();
