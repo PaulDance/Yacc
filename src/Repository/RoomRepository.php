@@ -40,23 +40,24 @@ class RoomRepository extends ServiceEntityRepository {
 								string $minPriceSearch,
 								string $maxPriceSearch): array {
 		$qb = $this->createQueryBuilder('room');
+		$eb = $qb->expr();
 		
 		$qb->distinct()
 			->join('room.regions', 'region')
-			->andWhere($qb->expr()->orX(
-							$qb->expr()->like('room.summaryLowercase', ':roomSearchPattern'),
-							$qb->expr()->like('room.descriptionLowercase', ':roomSearchPattern')))
-			->andWhere($qb->expr()->orX(
-							$$qb->expr()->like('region.nameLowercase', ':regionSearchPattern'),
-							$qb->expr()->like('region.presentationLowercase', ':regionSearchPattern')))
-			->andWhere($qb->expr()->notIn('room.id', $this->createQueryBuilder('subRoom')
+			->andWhere($eb->orX(
+							$eb->like('room.summaryLowercase', ':roomSearchPattern'),
+							$eb->like('room.descriptionLowercase', ':roomSearchPattern')))
+			->andWhere($eb->orX(
+							$eb->like('region.nameLowercase', ':regionSearchPattern'),
+							$eb->like('region.presentationLowercase', ':regionSearchPattern')))
+			->andWhere($eb->notIn('room.id', $this->createQueryBuilder('subRoom')
 							->select('subRoom.id')
 							->join('subRoom.reservations', 'reservation')
-							->where($qb->expr()->andX(
-										$qb->expr()->lt('reservation.startDate', ':endDateSearch'),
-										$qb->expr()->lt(':startDateSearch', 'reservation.endDate')))
+							->where($eb->andX(
+										$eb->lt('reservation.startDate', ':endDateSearch'),
+										$eb->lt(':startDateSearch', 'reservation.endDate')))
 							->getDQL()))
-			->andWhere($qb->expr()->between('room.price', ':minPriceSearch', ':maxPriceSearch'))
+			->andWhere($eb->between('room.price', ':minPriceSearch', ':maxPriceSearch'))
 			->setParameter('roomSearchPattern', '%' . mb_strtolower($roomSearch) . '%', Types::STRING)
 			->setParameter('regionSearchPattern', '%' . mb_strtolower($regionSearch) . '%', Types::STRING)
 			->setParameter('startDateSearch', \DateTime::createFromFormat('d#m#Y', $startDateSearch)->format('Y-m-d'), Types::STRING)
@@ -109,8 +110,9 @@ class RoomRepository extends ServiceEntityRepository {
 	 */
 	public function findMinMaxPrices(): array {
 		$qb = $this->getEntityManager()->createQueryBuilder();
+		$eb = $qb->expr();
 		
-		$qb->select($qb->expr()->min('room.price'), $qb->expr()->max('room.price'))
+		$qb->select($eb->min('room.price'), $eb->max('room.price'))
 			->from(Room::class, 'room');
 		
 		$minMaxStringPrices = $qb->getQuery()->execute()[0];
