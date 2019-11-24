@@ -47,6 +47,8 @@ class SearchController extends AbstractController {
 			
 			$foundRooms = $roomRepository->findBySearch($request->query->get('room', ''),
 														$request->query->get('region', ''),
+														$request->query->get('startDate', '01/01/0001'),
+														$request->query->get('endDate', '01/01/0001'),
 														$request->query->get('minPrice', strval($minMaxPrices['minPrice'])),
 														$request->query->get('maxPrice', strval($minMaxPrices['maxPrice'])));
 		}

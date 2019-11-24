@@ -35,25 +35,36 @@ class RoomRepository extends ServiceEntityRepository {
 	 */
 	public function findBySearch(string $roomSearch,
 								string $regionSearch,
+								string $startDateSearch,
+								string $endDateSearch,
 								string $minPriceSearch,
 								string $maxPriceSearch): array {
 		$qb = $this->createQueryBuilder('room');
 		
-		$qb->join('room.regions', 'region')
-			->where($qb->expr()->orX(
-								$qb->expr()->like('room.summaryLowercase', ':roomSearchPattern'),
-								$qb->expr()->like('room.descriptionLowercase', ':roomSearchPattern')))
+		$qb->distinct()
+			->join('room.regions', 'region')
 			->andWhere($qb->expr()->orX(
-								$qb->expr()->like('region.nameLowercase', ':regionSearchPattern'),
-								$qb->expr()->like('region.presentationLowercase', ':regionSearchPattern')))
+							$qb->expr()->like('room.summaryLowercase', ':roomSearchPattern'),
+							$qb->expr()->like('room.descriptionLowercase', ':roomSearchPattern')))
+			->andWhere($qb->expr()->orX(
+							$$qb->expr()->like('region.nameLowercase', ':regionSearchPattern'),
+							$qb->expr()->like('region.presentationLowercase', ':regionSearchPattern')))
+			->andWhere($qb->expr()->notIn('room.id', $this->createQueryBuilder('subRoom')
+							->select('subRoom.id')
+							->join('subRoom.reservations', 'reservation')
+							->where($qb->expr()->andX(
+										$qb->expr()->lt('reservation.startDate', ':endDateSearch'),
+										$qb->expr()->lt(':startDateSearch', 'reservation.endDate')))
+							->getDQL()))
 			->andWhere($qb->expr()->between('room.price', ':minPriceSearch', ':maxPriceSearch'))
-			->distinct()
 			->setParameter('roomSearchPattern', '%' . mb_strtolower($roomSearch) . '%', Types::STRING)
 			->setParameter('regionSearchPattern', '%' . mb_strtolower($regionSearch) . '%', Types::STRING)
+			->setParameter('startDateSearch', \DateTime::createFromFormat('d#m#Y', $startDateSearch)->format('Y-m-d'), Types::STRING)
+			->setParameter('endDateSearch', \DateTime::createFromFormat('d#m#Y', $endDateSearch)->format('Y-m-d'), Types::STRING)
 			->setParameter('minPriceSearch', $minPriceSearch, Types::STRING)
 			->setParameter('maxPriceSearch', $maxPriceSearch, Types::STRING);
 		
-		return $qb->getQuery()->execute();
+		return dump($qb->getQuery()->execute());
 	}
 	
 	/**
