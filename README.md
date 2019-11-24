@@ -4,12 +4,26 @@ Yacc - Yet Another Couette & Café
 #### A dynamic room booking Web site, i.e. an AirBnB rip-off.
 
 
+
+## Requirements
+
+In parenthesis are the Debian or Debian-like corresponding package names, which
+could help you find the correct version for your system.
+
+* [Composer](https://getcomposer.org/) (`composer`)
+* DOM, SimpleXML, WDDX, XML, and XSL module for PHP (`php-xml`).
+* SQLite3 module for PHP (`php-sqlite3`).
+* CURL module for PHP (`php-curl`).
+
+
 ## Installation
 
+* Get the requirements.
 * Clone this git repository.
 * Go into the thus downloaded directory.
 * Run `make install`, which should install the symfony console and the composer
   dependencies automatically.
+
 
 ## Execution
 
@@ -21,6 +35,7 @@ Yacc - Yet Another Couette & Café
   ones, including the images.
 * Run `make run` to start the Symfony local web server, which uses `bin/symfony`
   and not `bin/console`. Then open your Web browser and visit `localhost:8000`.
+
 
 ## Updating
 
