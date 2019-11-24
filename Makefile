@@ -21,7 +21,8 @@ install: init
 .PHONY: run
 run: clean
 	@set -e
-	@./bin/console server:run -vvv
+	@touch $(logDir)/dev.log
+	@./bin/symfony server:start --no-tls -vv
 
 
 .PHONY: init
