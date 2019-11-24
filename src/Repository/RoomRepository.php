@@ -64,7 +64,7 @@ class RoomRepository extends ServiceEntityRepository {
 			->setParameter('minPriceSearch', $minPriceSearch, Types::STRING)
 			->setParameter('maxPriceSearch', $maxPriceSearch, Types::STRING);
 		
-		return dump($qb->getQuery()->execute());
+		return $qb->getQuery()->execute();
 	}
 	
 	/**

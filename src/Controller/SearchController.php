@@ -38,13 +38,6 @@ class SearchController extends AbstractController {
 			}
 		}
 		else {
-			dump('room: ' . $request->query->get('room'));
-			dump('region: ' . $request->query->get('region'));
-			dump('startDate: ' . $request->query->get('startDate'));
-			dump('endDate: ' . $request->query->get('endDate'));
-			dump('minPrice: ' . $request->query->get('minPrice'));
-			dump('maxPrice: ' . $request->query->get('maxPrice'));
-			
 			$foundRooms = $roomRepository->findBySearch($request->query->get('room', ''),
 														$request->query->get('region', ''),
 														$request->query->get('startDate', '01/01/0001'),
