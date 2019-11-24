@@ -1,0 +1,16 @@
+
+{% for i in 0..rooms|length %}
+	{% if (i % row_length) == 0 %}
+		<div class="row pb-4">
+			<div class="card-deck">
+				{% for room in rooms|slice(i, i + row_length - 1) %}
+					{{ include('room/thumb_show.html.twig',
+								{room: room,
+									index: loop.index,
+									max_col_width: max_col_width},
+								with_context = false) }}
+				{% endfor %}
+			</div>
+		</div>
+	{% endif %}
+{% endfor %}

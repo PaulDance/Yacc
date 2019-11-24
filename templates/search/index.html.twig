@@ -64,13 +64,11 @@
 	{{ form_end(form) }}
 	
 	<hr class="my-5"/>
-	<div class="col-md">
-		{% for room in rooms %}
-			<div class="row">
-				<a href="{{ path('room_show', {'id': room.id}) }}">{{ room.getSummary() }}</a>
-			</div>
-		{% endfor %}
-	</div>
+	{{ include('room/thumb_list.html.twig',
+				{rooms: rooms,
+					row_length: 3,
+					max_col_width: 22},
+				with_context = false) }}
 {% endblock main %}
 
 {% block additional_javascripts %}

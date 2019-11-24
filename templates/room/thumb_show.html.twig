@@ -1,0 +1,33 @@
+
+<div class="card card-raised border-primary" style="max-width: {{ max_col_width }}rem;">
+	<a href="{{ path('room_show', {'id': room.getId()}) }}">
+		<div class="card-header">
+			Room {{ index }}
+		</div>
+		
+		<img src="{{ asset((room.getImageAssets()|first).getAssetPath()) }}" class="card-img-top" alt="Room {{ index }}"/>
+		
+		<div class="card-body">
+			<div class="row align-items-center">
+				<div class="col-lg-8">
+					<h5 class="card-title">
+						{{ room.getSummary() }}
+					</h5>
+				</div>
+				<div class="col">
+					{{ room.getCapacity() }} <i class="material-icons">group</i>
+				</div>
+			</div>
+			<div class="row align-items-center">
+				<div class="col-lg-8">
+					<p class="card-text">
+						{{ room.getDescription() }}
+					</p>
+				</div>
+				<div class="col">
+					{{ room.getPrice() }} <i class="material-icons">euro</i>
+				</div>
+			</div>
+		</div>
+	</a>
+</div>
