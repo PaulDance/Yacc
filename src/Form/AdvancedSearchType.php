@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 
 
 class AdvancedSearchType extends AbstractType {
@@ -19,7 +20,8 @@ class AdvancedSearchType extends AbstractType {
 				->add('endDate', TextType::class, ['required' => false])
 				->add('minPrice', HiddenType::class, ['required' => false])
 				->add('maxPrice', HiddenType::class, ['required' => false])
-				->add('submitButton', SubmitType::class);
+				->add('submitButton', SubmitType::class)
+				->add('resetButton', ResetType::class);
 	}
 	
 	public function configureOptions(OptionsResolver $resolver) {

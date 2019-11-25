@@ -50,7 +50,13 @@
 			</div>
 		</div>
 		
-		<div class="row align-items-center justify-content-end">
+		<div class="row align-items-center justify-content-center">
+			<div class="col-sm-3">
+				{{ form_widget(form.resetButton,
+    								{'label': 'Reset',
+    									'attr': {'class': 'btn btn-md btn-default'}}) }}
+			</div>
+			
 			<div class="col-md-6">
 				<div id="priceRangeSlider" class="slider"></div>
 				{{ form_widget(form.minPrice) }}
