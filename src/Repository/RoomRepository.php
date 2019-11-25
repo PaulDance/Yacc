@@ -21,6 +21,52 @@ class RoomRepository extends ServiceEntityRepository {
 	}
 	
 	/**
+	 * Utility that generates a random array of $quantity
+	 * integers ranging between $min and $max.
+	 *  
+	 * @param int $min The minimal value of the range.
+	 * @param int $max The maximal value of the range.
+	 * @param int $quantity The length of the array to generate.
+	 * @return array The generated array of integers.
+	 */
+	public static function randomRangedArray(int $min, int $max, int $quantity): array {
+		$numbers = range($min, $max);
+		shuffle($numbers);
+		
+		return array_slice($numbers, 0, $quantity);
+	}
+	
+	/**
+	 * @return int The number of Room objects in the database.
+	 */
+	public function getCount(): int {
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		
+		return $qb->select($qb->expr()->count('room.id'))
+					->from(Room::class, 'room')
+					->getQuery()
+					->getSingleScalarResult();
+	}
+	
+	/**
+	 * Produces an array containing a specifiable number of
+	 * Room objects from the database.
+	 * 
+	 * @param int $numberOfRooms The wanted array size.
+	 * @return array The generated array of Rooms.
+	 */
+	public function getRandom(int $numberOfRooms): array {
+		$qb = $this->createQueryBuilder('room');
+		
+		return $qb->where($qb->expr()->in('room.id',
+								RoomRepository::randomRangedArray(1,
+																$this->getCount(),
+																$numberOfRooms)))
+					->getQuery()
+					->execute();
+	}
+	
+	/**
 	 * Performs a search for rooms of the database using multiple elements.
 	 * 
 	 * @param string $roomSearch A string to look for in the rooms' summaries
