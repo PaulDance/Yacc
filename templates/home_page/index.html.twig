@@ -1,7 +1,9 @@
 {% extends 'baselayout/with-page-header/small.html.twig' %}
 
 
-{% block title %}{{ project_name }} - Welcome{% endblock %}
+{% block title %}{{ project_name }} - Welcome{% endblock title %}
+
+{% block background_image %}{{ asset(homePage.getRandBgImgAsset().getAssetPath()) }} {% endblock background_image %}
 
 {% block page_header_content %}
 	<div class="row align-items-center">
