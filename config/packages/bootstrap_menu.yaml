@@ -3,14 +3,11 @@ bootstrap_menu:
     main_top_left:
       items:
         search:
-          label: 'Search'
+          label: 'Search Rooms'
           route: 'search'
-        rooms:
-          label: 'Rooms'
-          route: 'room_index'
         
         regions:
-          label: 'Regions'
+          label: 'List Regions'
           route: 'region_index'
     
     main_top_right_anonymous:
