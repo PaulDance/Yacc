@@ -108,8 +108,14 @@
 			$("#{{ form.maxPrice.vars.id }}").val(rangePrices[1]);
 		};
 		
+		resetPriceSlider = function() {
+			priceRangeSlider.noUiSlider.set([{{ minMinPrice }}, {{ maxMaxPrice }}]);
+			updatePriceInputs();
+		}
+		
 		updatePriceInputs();
 		priceRangeSlider.noUiSlider.on('set', updatePriceInputs);
+		$("#{{ form.resetButton.vars.id }}").click(resetPriceSlider);
 	</script>
 {% endblock additional_javascripts %}
 
