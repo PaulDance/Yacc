@@ -109,7 +109,7 @@
 		};
 		
 		resetPriceSlider = function() {
-			priceRangeSlider.noUiSlider.set([{{ minMinPrice }}, {{ maxMaxPrice }}]);
+			priceRangeSlider.noUiSlider.reset();
 			updatePriceInputs();
 		}
 		
