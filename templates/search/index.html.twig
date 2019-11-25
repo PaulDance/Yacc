@@ -50,17 +50,19 @@
 			</div>
 		</div>
 		
-		<div class="row align-items-center">
-			<div class="col-sm-3 justify-self-start">
-				{{ form_widget(form.submitButton,
-				                {'label': 'Search',
-				                	'attr': {'class': 'btn btn-md btn-primary'}}) }}
-			</div>
-			
-			<div class="col-md-6 justify-self-center">
+		<div class="row align-items-center justify-content-end">
+			<div class="col-md-6">
 				<div id="priceRangeSlider" class="slider"></div>
 				{{ form_widget(form.minPrice) }}
 				{{ form_widget(form.maxPrice) }}
+			</div>
+			
+			<div class="col-sm-3">
+				<span class="pull-right">
+    				{{ form_widget(form.submitButton,
+    								{'label': 'Search',
+    									'attr': {'class': 'btn btn-md btn-primary'}}) }}
+				</span>
 			</div>
 		</div>
 	{{ form_end(form) }}
