@@ -45,29 +45,13 @@
 				<h3 class="description">Rooms are available in many regions:</h3>
 			</div>
 		</div>
-		<div class="features">
-			<div class="row">
-				<div class="col">
-					<div class="info">
-						<div class="icon icon-info">
-							<i class="fa fa-image"></i><br/>
-							$Image here$
-						</div>
-						<h4 class="info-title">Region 1 name</h4>
-						<p>Region 1 short description</p>
-					</div>
-				</div>
-				<div class="col">
-					<div class="info">
-						<div class="icon icon-success">
-							<i class="fa fa-image"></i><br/>
-							$Image here$
-						</div>
-						<h4 class="info-title">Region 2 name</h4>
-						<p>Region 2 short description</p>
-					</div>
-				</div>
-			</div>
+		<div class="features row justify-content-center pt-4">
+			{{ include('region/thumb_list.html.twig',
+			            {'regions': randomRegions,
+			                'row_length': 3,
+			                'max_col_width': 22,
+			                'nothing_found_message': ''},
+			            with_context = false) }}
 		</div>
 	</div>
 	<div class="section text-center">

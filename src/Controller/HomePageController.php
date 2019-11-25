@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\HomePage;
 use App\Entity\Room;
+use App\Entity\Region;
 
 
 class HomePageController extends AbstractController {
@@ -20,6 +21,9 @@ class HomePageController extends AbstractController {
 													->getHomePage(),
 								'randomRooms' => $this->getDoctrine()
 													->getRepository(Room::class)
-													->getRandom(3)]);
+													->getRandom(3),
+								'randomRegions' => $this->getDoctrine()
+														->getRepository(Region::class)
+														->getRandom(2)]);
 	}
 }
