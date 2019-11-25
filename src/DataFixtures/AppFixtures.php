@@ -15,6 +15,7 @@ use App\Entity\UserAccount;
 use App\Service\FileUploader;
 use App\Entity\ImageAsset;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use App\Entity\HomePage;
 
 
 class AppFixtures extends Fixture {
@@ -169,6 +170,27 @@ class AppFixtures extends Fixture {
 										->addRoom($jmRoom1)
 										->addRoom($jmRoom2);
 		$manager->persist($algJmRoom1n2Reservation);
+		
+		
+		$homePage = new HomePage();
+		$manager->persist($homePage);
+		$manager->flush();
+		$homePage->addBgImageAsset((new ImageAsset())
+										->getSetFromURL('https://unsplash.com/photos/7Xl0a6KCDyM/download',
+												HomePage::imgDirRelConfig, HomePage::imgDirAbsConfig,
+												$homePage, $this->container, $this->fileUploader))
+				->addBgImageAsset((new ImageAsset())
+										->getSetFromURL('https://unsplash.com/photos/v0KkmlchPRI/download',
+												HomePage::imgDirRelConfig, HomePage::imgDirAbsConfig,
+												$homePage, $this->container, $this->fileUploader))
+				->addBgImageAsset((new ImageAsset())
+										->getSetFromURL('https://unsplash.com/photos/a6EzvPjXfBY/download',
+												HomePage::imgDirRelConfig, HomePage::imgDirAbsConfig,
+												$homePage, $this->container, $this->fileUploader))
+				->addBgImageAsset((new ImageAsset())
+										->getSetFromURL('https://unsplash.com/photos/-1zFsXJIJhA/download',
+												HomePage::imgDirRelConfig, HomePage::imgDirAbsConfig,
+												$homePage, $this->container, $this->fileUploader));
 		
 		
 		$manager->flush();
