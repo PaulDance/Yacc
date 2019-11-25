@@ -67,7 +67,8 @@
 	{{ include('room/thumb_list.html.twig',
 				{rooms: rooms,
 					row_length: 3,
-					max_col_width: 22},
+					max_col_width: 22,
+					nothing_found_message: 'Sorry, no available room fits your search.'},
 				with_context = false) }}
 {% endblock main %}
 

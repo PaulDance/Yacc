@@ -1,16 +1,24 @@
 
-{% for i in 0..rooms|length %}
-	{% if (i % row_length) == 0 %}
-		<div class="row pb-4">
-			<div class="card-deck">
-				{% for room in rooms|slice(i, i + row_length - 1) %}
-					{{ include('room/thumb_show.html.twig',
-								{room: room,
-									index: loop.index,
-									max_col_width: max_col_width},
-								with_context = false) }}
-				{% endfor %}
+{% set rooms_len = rooms|length %}
+
+{% if rooms_len == 0 %}
+	<p class="h4 text-center pb-4">
+		{{ nothing_found_message }}
+	</p>
+{% else %}
+	{% for i in 0..(rooms_len - 1) %}
+		{% if (i % row_length) == 0 %}
+			<div class="row pb-4">
+				<div class="card-deck">
+					{% for room in rooms|slice(i, i + row_length - 1) %}
+						{{ include('room/thumb_show.html.twig',
+									{room: room,
+										index: loop.index,
+										max_col_width: max_col_width},
+									with_context = false) }}
+					{% endfor %}
+				</div>
 			</div>
-		</div>
-	{% endif %}
-{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
