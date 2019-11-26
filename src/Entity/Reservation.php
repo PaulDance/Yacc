@@ -26,6 +26,10 @@ class Reservation {
 	 */
 	private $endDate;
 	/**
+	 * @ORM\Column(type="smallint")
+	 */
+	private $numberOfGuests;
+	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="reservations")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
@@ -59,6 +63,15 @@ class Reservation {
 	
 	public function setEndDate(\DateTimeInterface $endDate): self {
 		$this->endDate = $endDate;
+		return $this;
+	}
+	
+	public function getNumberOfGuests(): ?int {
+		return $this->numberOfGuests;
+	}
+	
+	public function setNumberOfGuests(int $numberOfGuests): self {
+		$this->numberOfGuests = $numberOfGuests;
 		return $this;
 	}
 	
