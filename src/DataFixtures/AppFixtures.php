@@ -146,6 +146,7 @@ class AppFixtures extends Fixture {
 		$gzJmRoom1Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 28))
 										->setEndDate((new \DateTime())->setDate(2019, 12, 02))
+										->setNumberOfGuests(10)
 										->setClient($geoffroyZardiClient)
 										->setRoom($jmRoom1);
 		$manager->persist($gzJmRoom1Reservation);
@@ -166,6 +167,7 @@ class AppFixtures extends Fixture {
 		$algJmRoom1Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 17))
 										->setEndDate((new \DateTime())->setDate(2019, 11, 23))
+										->setNumberOfGuests(13)
 										->setClient($alexisLeGlaunecClient)
 										->setRoom($jmRoom1);
 		$manager->persist($algJmRoom1Reservation);
@@ -173,6 +175,7 @@ class AppFixtures extends Fixture {
 		$algJmRoom2Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 17))
 										->setEndDate((new \DateTime())->setDate(2019, 11, 23))
+										->setNumberOfGuests(2)
 										->setClient($alexisLeGlaunecClient)
 										->setRoom($jmRoom2);
 		$manager->persist($algJmRoom2Reservation);
