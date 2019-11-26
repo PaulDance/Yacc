@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use App\Entity\Client;
+use App\Entity\Owner;
 
 
 class RegistrationController extends AbstractController {
@@ -21,18 +23,27 @@ class RegistrationController extends AbstractController {
 							UserPasswordEncoderInterface $passwordEncoder,
 							GuardAuthenticatorHandler $guardHandler,
 							LoginFormAuthenticator $authenticator): Response {
-		$user = new UserAccount();
-		$form = $this->createForm(RegistrationFormType::class, $user);
+		$userAccount = new UserAccount();
+		$form = $this->createForm(RegistrationFormType::class, $userAccount);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
-			$user->setPassword($passwordEncoder->encodePassword($user, $form->get('password')->getData()));
-			
+			$userAccount->setPassword($passwordEncoder->encodePassword($userAccount, $form->get('password')->getData()));
 			$entityManager = $this->getDoctrine()->getManager();
-			$entityManager->persist($user);
-			$entityManager->flush();
+			$entityManager->persist($userAccount);
 			
-			return $guardHandler->authenticateUserAndHandleSuccess($user, $request, $authenticator, 'main');
+			if ($form->get('isClient')->getData()) {
+				$userAccount->addRole('ROLE_CLIENT');
+				$entityManager->persist((new Client())->setUserAccount($userAccount));
+			}
+			
+			if ($form->get('isOwner')->getData()) {
+				$userAccount->addRole('ROLE_OWNER');
+				$entityManager->persist((new Owner())->setUserAccount($userAccount));
+			}
+			
+			$entityManager->flush();
+			return $guardHandler->authenticateUserAndHandleSuccess($userAccount, $request, $authenticator, 'main');
 		}
 		
 		return $this->render('registration/register.html.twig',

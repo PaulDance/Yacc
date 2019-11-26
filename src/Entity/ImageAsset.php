@@ -33,6 +33,10 @@ class ImageAsset {
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Region", inversedBy="imageAssets")
 	 */
 	private $possibleRegion;
+	/**
+	 * @ORM\ManyToOne(targetEntity="App\Entity\HomePage", inversedBy="bgImageAssets")
+	 */
+	private $possibleHomePage;
 	
 	public function __toString(): string {
 		return "$this->id @ $this->assetPath";
@@ -78,11 +82,12 @@ class ImageAsset {
 	 * @return self
 	 */
 	public function setAssetPathFromConfig(string $configRelDir,
-											string $fileName, object $entity,
+											string $fileName,
+											object $entity,
 											ContainerInterface $container): self {
-		return $this->setAssetPath(
-									$container->getParameter($configRelDir) . '/' .
-									strval($entity->getId()) . '/' . $fileName);
+		return $this->setAssetPath($container->getParameter($configRelDir)
+									. '/' . strval($entity->getId())
+									. '/' . $fileName);
 	}
 	
 	/**
@@ -105,11 +110,13 @@ class ImageAsset {
 									string $configAbsDir, object $entity,
 									ContainerInterface $container,
 									FileUploader $fileUploader): self {
-		$fileUploader->setTargetDirectoryFromConfig($configAbsDir, '/' . strval($entity->getId()));
+		$fileUploader->setTargetDirectoryFromConfig($configAbsDir,
+													'/' . strval($entity->getId()));
 		
 		return $this->setAssetPathFromConfig($configRelDir,
 											$fileUploader->uploadFromURL($URL),
-											$entity, $container);
+											$entity,
+											$container);
 	}
 	
 	/**
@@ -149,6 +156,26 @@ class ImageAsset {
 	 */
 	public function setRegion(?Region $region): self {
 		$this->possibleRegion = $region;
+		return $this;
+	}
+	
+	/**
+	 * Gets the HomePage object that is possibly linked to the ImageAsset.
+	 *
+	 * @return HomePage|NULL The object, which can be valued to NULL.
+	 */
+	public function getPossibleHomePage(): ?HomePage {
+		return $this->possibleHomePage;
+	}
+	
+	/**
+	 * Sets the home page that this ImageAsset should be linked to.
+	 *
+	 * @param HomePage $homePage The HomePage object in question.
+	 * @return self
+	 */
+	public function setHomePage(?HomePage $homePage): self {
+		$this->possibleHomePage = $homePage;
 		return $this;
 	}
 }

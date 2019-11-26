@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 
 class RegistrationFormType extends AbstractType {
@@ -21,7 +22,11 @@ class RegistrationFormType extends AbstractType {
 						PasswordType::class,
 						['constraints' => [new Length(['min' => 6,
 														'minMessage' => 'Your password should be at least {{ limit }} characters long.',
-														'max' => 4096])]]);
+														'max' => 4096])]])
+				->add('isClient', CheckboxType::class,
+						['required' => false, 'mapped' => false])
+				->add('isOwner', CheckboxType::class,
+						['required' => false, 'mapped' => false]);
 	}
 	
 	public function configureOptions(OptionsResolver $resolver) {

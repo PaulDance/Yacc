@@ -33,6 +33,6 @@ bootstrap_menu:
     
     main_bottom_left:
       items:
-        home:
+        home_page:
           label: 'Home'
-          route: 'home'
+          route: 'home_page'

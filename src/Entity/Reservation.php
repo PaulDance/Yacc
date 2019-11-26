@@ -26,14 +26,19 @@ class Reservation {
 	 */
 	private $endDate;
 	/**
+	 * @ORM\Column(type="smallint")
+	 */
+	private $numberOfGuests;
+	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="reservations")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
 	private $client;
 	/**
-	 * @ORM\ManyToMany(targetEntity="App\Entity\Room", inversedBy="reservations")
+	 * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="reservations")
+	 * @ORM\JoinColumn(nullable=false)
 	 */
-	private $rooms;
+	private $room;
 	
 	public function __construct() {
 		$this->rooms = new ArrayCollection();
@@ -61,6 +66,15 @@ class Reservation {
 		return $this;
 	}
 	
+	public function getNumberOfGuests(): ?int {
+		return $this->numberOfGuests;
+	}
+	
+	public function setNumberOfGuests(int $numberOfGuests): self {
+		$this->numberOfGuests = $numberOfGuests;
+		return $this;
+	}
+	
 	public function getClient(): ?Client {
 		return $this->client;
 	}
@@ -70,26 +84,12 @@ class Reservation {
 		return $this;
 	}
 	
-	/**
-	 * @return Collection|Room[]
-	 */
-	public function getRooms(): Collection {
-		return $this->rooms;
+	public function getRoom(): ?Room {
+		return $this->room;
 	}
 	
-	public function addRoom(Room $room): self {
-		if (!$this->rooms->contains($room)) {
-			$this->rooms[] = $room;
-		}
-		
-		return $this;
-	}
-	
-	public function removeRoom(Room $room): self {
-		if ($this->rooms->contains($room)) {
-			$this->rooms->removeElement($room);
-		}
-		
+	public function setRoom(?Room $room): self {
+		$this->room = $room;
 		return $this;
 	}
 }

@@ -1,0 +1,19 @@
+
+<div class="card card-raised border-primary" style="max-width: {{ max_col_width }}rem;">
+	<a href="{{ path('region_show', {'id': region.getId()}) }}">
+		<div class="card-header">
+			Region {{ index }}
+		</div>
+		
+		<img src="{{ asset((region.getImageAssets()|first).getAssetPath()) }}" class="card-img-top" alt="Region {{ index }}"/>
+		
+		<div class="card-body">
+			<h5 class="card-title">
+				{{ region.getName() }}
+			</h5>
+			<p class="card-text">
+				{{ region.getPresentation() }}
+			</p>
+		</div>
+	</a>
+</div>

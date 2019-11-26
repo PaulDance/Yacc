@@ -15,6 +15,7 @@ use App\Entity\UserAccount;
 use App\Service\FileUploader;
 use App\Entity\ImageAsset;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use App\Entity\HomePage;
 
 
 class AppFixtures extends Fixture {
@@ -145,8 +146,9 @@ class AppFixtures extends Fixture {
 		$gzJmRoom1Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 28))
 										->setEndDate((new \DateTime())->setDate(2019, 12, 02))
+										->setNumberOfGuests(10)
 										->setClient($geoffroyZardiClient)
-										->addRoom($jmRoom1);
+										->setRoom($jmRoom1);
 		$manager->persist($gzJmRoom1Reservation);
 		
 		
@@ -162,13 +164,42 @@ class AppFixtures extends Fixture {
 																							'algpasswd')));
 		$manager->persist($alexisLeGlaunecClient);
 		
-		$algJmRoom1n2Reservation = (new Reservation())
+		$algJmRoom1Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 17))
 										->setEndDate((new \DateTime())->setDate(2019, 11, 23))
+										->setNumberOfGuests(13)
 										->setClient($alexisLeGlaunecClient)
-										->addRoom($jmRoom1)
-										->addRoom($jmRoom2);
-		$manager->persist($algJmRoom1n2Reservation);
+										->setRoom($jmRoom1);
+		$manager->persist($algJmRoom1Reservation);
+		
+		$algJmRoom2Reservation = (new Reservation())
+										->setStartDate((new \DateTime())->setDate(2019, 11, 17))
+										->setEndDate((new \DateTime())->setDate(2019, 11, 23))
+										->setNumberOfGuests(2)
+										->setClient($alexisLeGlaunecClient)
+										->setRoom($jmRoom2);
+		$manager->persist($algJmRoom2Reservation);
+		
+		
+		$homePage = new HomePage();
+		$manager->persist($homePage);
+		$manager->flush();
+		$homePage->addBgImageAsset((new ImageAsset())
+										->getSetFromURL('https://unsplash.com/photos/7Xl0a6KCDyM/download',
+												HomePage::imgDirRelConfig, HomePage::imgDirAbsConfig,
+												$homePage, $this->container, $this->fileUploader))
+				->addBgImageAsset((new ImageAsset())
+										->getSetFromURL('https://unsplash.com/photos/v0KkmlchPRI/download',
+												HomePage::imgDirRelConfig, HomePage::imgDirAbsConfig,
+												$homePage, $this->container, $this->fileUploader))
+				->addBgImageAsset((new ImageAsset())
+										->getSetFromURL('https://unsplash.com/photos/a6EzvPjXfBY/download',
+												HomePage::imgDirRelConfig, HomePage::imgDirAbsConfig,
+												$homePage, $this->container, $this->fileUploader))
+				->addBgImageAsset((new ImageAsset())
+										->getSetFromURL('https://unsplash.com/photos/-1zFsXJIJhA/download',
+												HomePage::imgDirRelConfig, HomePage::imgDirAbsConfig,
+												$homePage, $this->container, $this->fileUploader));
 		
 		
 		$manager->flush();

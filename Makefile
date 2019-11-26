@@ -3,6 +3,7 @@ assetsDir = ./public/assets
 imgDir = $(assetsDir)/img
 roomImgDir = $(imgDir)/room
 regionImgDir = $(imgDir)/region
+homePageImgDir = $(imgDir)/home
 
 dbPath = ./var/data.db
 tmpDir = ./tmp
@@ -39,6 +40,7 @@ init:
 	@mkdir -v -p -m=755 $(tmpDir)
 	@mkdir -v -p -m=755 $(roomImgDir)
 	@mkdir -v -p -m=755 $(regionImgDir)
+	@mkdir -v -p -m=755 $(homePageImgDir)
 
 
 .PHONY: db
@@ -60,5 +62,6 @@ clean-all: clean
 	@set -e
 	rm -rf $(roomImgDir)/*
 	rm -rf $(regionImgDir)/*
+	rm -rf $(homePageImgDir)/*
 	rm -f $(dbPath)
 

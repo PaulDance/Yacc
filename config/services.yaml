@@ -19,6 +19,10 @@ parameters:
     region_img_dir: 'region'
     region_img_dir_rel: '%img_dir%/%region_img_dir%'
     region_img_dir_abs: '%img_dir_abs%/%region_img_dir%'
+    
+    home_img_dir: 'home'
+    home_img_dir_rel: '%img_dir%/%home_img_dir%'
+    home_img_dir_abs: '%img_dir_abs%/%home_img_dir%'
 
 
 services:

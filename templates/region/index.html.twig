@@ -3,38 +3,15 @@
 {% block title %}{{ project_name }} - Region index{% endblock title %}
 
 {% block main %}
-	<h1>Region index</h1>
-	
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-				<th>Presentation</th>
-				<th>Country</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-		{% for region in regions %}
-			<tr>
-				<td>{{ region.id }}</td>
-				<td>{{ region.name }}</td>
-				<td>{{ region.presentation }}</td>
-				<td>{{ region.country }}</td>
-				<td>
-					<a href="{{ path('region_show', {'id': region.id}) }}">show</a>
-					<a href="{{ path('region_edit', {'id': region.id}) }}">edit</a>
-				</td>
-			</tr>
-		{% else %}
-			<tr>
-				<td colspan="5">no records found</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-	
-	<br/>
-	<a href="{{ path('region_new') }}">Create new</a>
+	<div class="pt-1 pb-4">
+		<h1 class="title">Region index</h1>
+		<hr class="my-4"/>
+		
+		{{ include('region/thumb_list.html.twig',
+					{regions: regions,
+						row_length: 3,
+						max_col_width: 22,
+						nothing_found_message: 'There seems to be a problem here.'},
+					with_context = false) }}
+	</div>
 {% endblock main %}

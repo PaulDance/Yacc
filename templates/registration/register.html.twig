@@ -72,9 +72,41 @@
 		</div>
 		
 		<div class="row justify-content-center">
-			<div class="col-md-7">
-				<div class="form-group bmd-form-group">
-					<button class="btn btn-md btn-primary" type="submit">Register</button>
+			<div class="col-md-8">
+				<div class="row align-items-center">
+					<div class="col">
+						<div class="row justify-content-center">
+							<div class="col text-center">
+    							<div class="form-check bmd-form-group">
+    								<label class="form-check-label">
+    									{{ form_widget(registrationForm.isClient,
+									                    {'attr': {'class': 'form-check-input'}}) }}
+    									Client
+    									<span class="form-check-sign">
+    										<span class="check"></span>
+    									</span>
+    								</label>
+    							</div>
+							</div>
+							<div class="col text-center">
+    							<div class="form-check bmd-form-group">
+    								<label class="form-check-label">
+    									{{ form_widget(registrationForm.isOwner,
+									                    {'attr': {'class': 'form-check-input'}}) }}
+    									Owner
+    									<span class="form-check-sign">
+    										<span class="check"></span>
+    									</span>
+    								</label>
+    							</div>
+							</div>
+						</div>
+					</div>
+					<div class="col text-center">
+						<div class="form-group bmd-form-group">
+							<button class="btn btn-md btn-primary" type="submit">Register</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
