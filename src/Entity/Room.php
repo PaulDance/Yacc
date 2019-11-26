@@ -78,7 +78,7 @@ class Room {
 	 */
 	private $comments;
 	/**
-	 * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="rooms")
+	 * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="room", orphanRemoval=true)
 	 */
 	private $reservations;
 	/**
@@ -261,7 +261,7 @@ class Room {
 	public function addReservation(Reservation $reservation): self {
 		if (!$this->reservations->contains($reservation)) {
 			$this->reservations[] = $reservation;
-			$reservation->addRoom($this);
+			$reservation->setRoom($this);
 		}
 		
 		return $this;
@@ -270,7 +270,10 @@ class Room {
 	public function removeReservation(Reservation $reservation): self {
 		if ($this->reservations->contains($reservation)) {
 			$this->reservations->removeElement($reservation);
-			$reservation->removeRoom($this);
+			
+			if ($reservation->getRoom() === $this) {
+				$reservation->setRoom(null);
+			}
 		}
 		
 		return $this;
