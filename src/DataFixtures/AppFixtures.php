@@ -147,7 +147,7 @@ class AppFixtures extends Fixture {
 										->setStartDate((new \DateTime())->setDate(2019, 11, 28))
 										->setEndDate((new \DateTime())->setDate(2019, 12, 02))
 										->setClient($geoffroyZardiClient)
-										->addRoom($jmRoom1);
+										->setRoom($jmRoom1);
 		$manager->persist($gzJmRoom1Reservation);
 		
 		
@@ -163,13 +163,19 @@ class AppFixtures extends Fixture {
 																							'algpasswd')));
 		$manager->persist($alexisLeGlaunecClient);
 		
-		$algJmRoom1n2Reservation = (new Reservation())
+		$algJmRoom1Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 17))
 										->setEndDate((new \DateTime())->setDate(2019, 11, 23))
 										->setClient($alexisLeGlaunecClient)
-										->addRoom($jmRoom1)
-										->addRoom($jmRoom2);
-		$manager->persist($algJmRoom1n2Reservation);
+										->setRoom($jmRoom1);
+		$manager->persist($algJmRoom1Reservation);
+		
+		$algJmRoom2Reservation = (new Reservation())
+										->setStartDate((new \DateTime())->setDate(2019, 11, 17))
+										->setEndDate((new \DateTime())->setDate(2019, 11, 23))
+										->setClient($alexisLeGlaunecClient)
+										->setRoom($jmRoom2);
+		$manager->persist($algJmRoom2Reservation);
 		
 		
 		$homePage = new HomePage();
