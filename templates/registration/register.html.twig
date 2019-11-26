@@ -72,9 +72,45 @@
 		</div>
 		
 		<div class="row justify-content-center">
-			<div class="col-md-7">
-				<div class="form-group bmd-form-group">
-					<button class="btn btn-md btn-primary" type="submit">Register</button>
+			<div class="col-md-8">
+				<div class="row align-items-center">
+					<div class="col">
+						<div class="row justify-content-center">
+							<div class="col text-center">
+    							<div class="form-check bmd-form-group">
+    								<label class="form-check-label">
+    									<input id="{{ registrationForm.isClient.vars.id }}"
+    											name="{{ registrationForm.isClient.vars.full_name }}"
+    											class="form-check-input" type="checkbox">
+    									Client
+    									<span class="form-check-sign">
+    										<span class="check"></span>
+    									</span>
+    								</label>
+    							</div>
+							</div>
+							{% do registrationForm.isClient.setRendered() %}
+							<div class="col text-center">
+    							<div class="form-check bmd-form-group">
+    								<label class="form-check-label">
+    									<input id="{{ registrationForm.isOwner.vars.id }}"
+    											name="{{ registrationForm.isOwner.vars.full_name }}"
+    											class="form-check-input" type="checkbox">
+    									Owner
+    									<span class="form-check-sign">
+    										<span class="check"></span>
+    									</span>
+    								</label>
+    							</div>
+							</div>
+							{% do registrationForm.isOwner.setRendered() %}
+						</div>
+					</div>
+					<div class="col text-center">
+						<div class="form-group bmd-form-group">
+							<button class="btn btn-md btn-primary" type="submit">Register</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
