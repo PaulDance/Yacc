@@ -79,9 +79,8 @@
 							<div class="col text-center">
     							<div class="form-check bmd-form-group">
     								<label class="form-check-label">
-    									<input id="{{ registrationForm.isClient.vars.id }}"
-    											name="{{ registrationForm.isClient.vars.full_name }}"
-    											class="form-check-input" type="checkbox">
+    									{{ form_widget(registrationForm.isClient,
+									                    {'attr': {'class': 'form-check-input'}}) }}
     									Client
     									<span class="form-check-sign">
     										<span class="check"></span>
@@ -89,13 +88,11 @@
     								</label>
     							</div>
 							</div>
-							{% do registrationForm.isClient.setRendered() %}
 							<div class="col text-center">
     							<div class="form-check bmd-form-group">
     								<label class="form-check-label">
-    									<input id="{{ registrationForm.isOwner.vars.id }}"
-    											name="{{ registrationForm.isOwner.vars.full_name }}"
-    											class="form-check-input" type="checkbox">
+    									{{ form_widget(registrationForm.isOwner,
+									                    {'attr': {'class': 'form-check-input'}}) }}
     									Owner
     									<span class="form-check-sign">
     										<span class="check"></span>
@@ -103,7 +100,6 @@
     								</label>
     							</div>
 							</div>
-							{% do registrationForm.isOwner.setRendered() %}
 						</div>
 					</div>
 					<div class="col text-center">
