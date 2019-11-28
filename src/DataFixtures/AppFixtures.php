@@ -275,7 +275,7 @@ class AppFixtures extends Fixture {
 														->setDate(2019, 10, 23)
 														->setTime(19, 46, 17))
 									->setRoom($jmRoom1)
-									->setClient($geoffroyZardiClient);
+									->setUserAccount($geoffroyZardiClientAccount);
 		$manager->persist($gzJmRoom1Comment1);
 		
 		$gzJmRoom1Comment2 = (new Comment())
@@ -285,14 +285,14 @@ class AppFixtures extends Fixture {
 		    ->setDate(2019, 08, 01)
 		    ->setTime(10, 41, 43))
 		    ->setRoom($jmRoom1)
-		    ->setClient($geoffroyZardiClient);
-		    $manager->persist($gzJmRoom1Comment1);
+		    ->setUserAccount($geoffroyZardiClientAccount);
+		    $manager->persist($gzJmRoom1Comment2);
 		
 		$gzJmRoom1Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 28))
 										->setEndDate((new \DateTime())->setDate(2019, 12, 02))
 										->setNumberOfGuests(10)
-										->setClient($alexisLeGlaunecClient)
+										->setClient($geoffroyZardiClient)
 										->setRoom($jmRoom1);
 		$manager->persist($gzJmRoom1Reservation);
 		
