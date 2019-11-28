@@ -123,6 +123,17 @@ class UserAccount implements UserInterface {
 	}
 	
 	/**
+	 * Determines whether the UserAccount is granted the given
+	 * $role or not.
+	 * 
+	 * @param string $role The role to test.
+	 * @return bool The result of the test.
+	 */
+	public function hasRole(string $role): bool {
+		return in_array($role, $this->getRoles());
+	}
+	
+	/**
 	 * @see UserInterface
 	 */
 	public function getPassword(): string {

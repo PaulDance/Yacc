@@ -280,6 +280,24 @@ class Room {
 	}
 	
 	/**
+	 * Determines whether the room is available for booking
+	 * between the two given dates.
+	 * 
+	 * @param \DateTimeInterface $startDate The check-in date.
+	 * @param \DateTimeInterface $endDate The check-out date.
+	 * @return bool The result of the test.
+	 */
+	public function isFreeBetween(\DateTimeInterface $startDate, \DateTimeInterface $endDate): bool {
+		foreach ($this->reservations as $reservation) {
+			if ($reservation->intersectsWith($startDate, $endDate)) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
 	 * @return Collection|ImageAsset[]
 	 */
 	public function getImageAssets(): Collection {

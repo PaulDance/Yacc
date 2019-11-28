@@ -66,6 +66,27 @@ class Reservation {
 		return $this;
 	}
 	
+	/**
+	 * Indicates true if the given dates intersect with the reservation.
+	 * 
+	 * @param \DateTimeInterface $startDate The check-in date.
+	 * @param \DateTimeInterface $endDate The check-out date.
+	 * @return bool The result of the test.
+	 */
+	public function intersectsWith(\DateTimeInterface $startDate, \DateTimeInterface $endDate): bool {
+		return $this->startDate < $endDate && $startDate < $this->endDate;
+	}
+	
+	/**
+	 * Checks if the reservation intersects with the given other one.
+	 * 
+	 * @param Reservation $anotherOne Another Reservation to check.
+	 * @return bool The result of the test.
+	 */
+	public function intersectsWithReservation(Reservation $anotherOne): bool {
+		return $this->intersectsWith($anotherOne->startDate, $anotherOne->endDate);
+	}
+	
 	public function getNumberOfGuests(): ?int {
 		return $this->numberOfGuests;
 	}
