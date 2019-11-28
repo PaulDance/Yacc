@@ -31,6 +31,7 @@
 			</nav>
 		{% endblock menu %}
 	</header>
+	
 	{% block page_header %}					{# Default page-header: very small ~= non-existent #}
 		<div class="page-header header-filter" data-parallax="true" style="height: 160px">
 			<div class="container">
@@ -40,6 +41,18 @@
 	{% endblock page_header %}
 	<div class="main main-raised">
 		<div class="container">
+			{% block flash_bags %}
+				{% for type, messages in app.session.flashBag.all() %}
+					{% for message in messages %}
+						<div class="alert alert-{{ type }} alert-dismissible" role="alert">
+							<button type="button" class="ml-2 mb-1 close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<p class="text-center"><strong>{{ message }}</strong></p>
+						</div>
+					{% endfor %}
+				{% endfor %}
+			{% endblock flash_bags %}
 			{% block main %}{% endblock main %}
 		</div>
 	</div>
