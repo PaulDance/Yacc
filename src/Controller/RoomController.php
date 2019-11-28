@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ReservationType;
 use App\Entity\Reservation;
+use App\Entity\Comment;
+use App\Form\CommentType;
 
 
 /**
@@ -40,9 +42,15 @@ class RoomController extends AbstractController {
 	 * @Route("/{id}", name="room_show", methods={"GET", "POST"})
 	 */
 	public function show(Room $room, Request $request): Response {
+		$entityManager = $this->getDoctrine()->getManager();
 		$reservation = new Reservation();
+		$comment = new Comment();
+		
 		$reservationForm = $this->createForm(ReservationType::class, $reservation, ['room' => $room]);
+		$commentForm = $this->createForm(CommentType::class, $comment);
+		
 		$reservationForm->handleRequest($request);
+		$commentForm->handleRequest($request);
 		
 		if ($reservationForm->isSubmitted()) {
 			if ($reservationForm->isValid()) {
@@ -59,7 +67,6 @@ class RoomController extends AbstractController {
 						if ($room && $room->getCapacity() >= intval($reservationForm->get('numberOfGuests')->getData())
 								&& $room->isFreeBetween($reservationForm->get('startDate')->getData(),
 														$reservationForm->get('endDate')->getData())) {
-							$entityManager = $this->getDoctrine()->getManager();
 							$reservation->setRoom($room);
 							$reservation->setClient($client);
 							$entityManager->persist($reservation);
@@ -78,10 +85,29 @@ class RoomController extends AbstractController {
 				}
 			}
 		}
+		else if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+			$userAccount = $this->getUser();
+				
+			if (!$userAccount) {
+				$this->addFlash('warning', 'You must be logged in to publish a comment.');
+				return $this->redirectToRoute('login');
+			}
+			else {
+				$comment->setDateTime(new \DateTime('now'))
+						->setUserAccount($userAccount)
+						->setRoom($room);
+				
+				$entityManager->persist($comment);
+				$entityManager->flush();
+				
+				return $this->redirectToRoute('room_show', ['id' => $room->getId()]);
+			}
+		}
 		
 		return $this->render('room/show.html.twig',
 							['room' => $room,
-								'reservationForm' => $reservationForm->createView()]);
+								'reservationForm' => $reservationForm->createView(),
+								'commentForm' => $commentForm->createView()]);
 	}
 	
 	/**

@@ -98,7 +98,7 @@
 												'Number of Guests',
 												{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
 								{{ form_widget(reservationForm.numberOfGuests,
-												{'attr': {'class': 'form-control'}}) }}
+												{'attr': {'class': 'form-control selectpicker'}}) }}
 							</div>
 						</div>
 						<div class="col text-center">
@@ -121,18 +121,60 @@
 		{% for comment in room.getComments() %}
 			<li class="list-group-item">
 				<div class="card">
-					<h3 class="card-title">
-						{{ comment.getClient().getUserAccount().getFirstName() }}
-						{{ comment.getClient().getUserAccount().getLastName() }}
-					</h3>
-					<p class="card-body text-center h5">
-						{{ comment.getText() }}
-					</p>
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<h3 class="card-title">
+									{{ comment.getUserAccount().getFirstName() }}
+									{{ comment.getUserAccount().getLastName() }}
+								</h3>
+							</div>
+							<div class="col text-right">
+								<small>{{ comment.getDateTime().format('d/m/Y - H:i') }}</small>
+							</div>
+						</div>
+						<p class="card-body text-center h5">
+							{{ comment.getText() }}
+						</p>
+					</div>
 				</div>
 			</li>
 		{% else %}
 			<p class="text-center h4">No comment yet.</p>
 		{% endfor %}
+	
+		<li class="list-group-item">
+			<div class="card">
+				<div class="container">
+					<h3 class="card-title">
+						Your comment
+					</h3>
+					<div class="card-body">
+						{{ form_start(commentForm) }}
+							<div class="row">
+								<div class="col">
+									<div class="form-group bmd-form-group">
+										{{ form_label(commentForm.text,
+													'Comment',
+													{'label_attr': {'class': 'label-control bmd-label-floating'}}) }}
+										{{ form_widget(commentForm.text,
+														{'attr': {'class': 'form-control', 'rows': 4}}) }}
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group bmd-form-group">
+										{{ form_widget(commentForm.submit,
+														{'attr': {'class': 'btn btn-md btn-round btn-default'}}) }}
+									</div>
+								</div>
+							</div>
+						{{ form_end(commentForm) }}
+					</div>
+				</div>
+			</div>
+		</li>
 	</ul>
 	
 	<br/>
