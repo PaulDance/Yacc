@@ -57,10 +57,23 @@
 					<h3 class="card-title">Description</h3>
 					<p class="card-text">{{ room.getDescription() }}</p>
 				</div>
-				<hr class="my-3">
+				<hr class="my-2">
 				<div class="card-body text-primary">
 					<h3 class="card-title">Address</h3>
 					<p class="card-text">{{ room.getAddress() }}</p>
+				</div>
+				<hr class="my-2">
+				<div class="card-body text-primary">
+					<h3 class="card-title">Regions</h3>
+					<div class="card-text">
+						<ul>
+							{% for region in room.getRegions() %}
+								<li>
+									<p>{{ region.getName() }}</p>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
