@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\ReservationType;
+use App\Entity\Reservation;
 
 
 /**
@@ -35,10 +37,51 @@ class RoomController extends AbstractController {
 	}
 	
 	/**
-	 * @Route("/{id}", name="room_show", methods={"GET"})
+	 * @Route("/{id}", name="room_show", methods={"GET", "POST"})
 	 */
-	public function show(Room $room): Response {
-		return $this->render('room/show.html.twig', ['room' => $room]);
+	public function show(Room $room, Request $request): Response {
+		$reservation = new Reservation();
+		$reservationForm = $this->createForm(ReservationType::class, $reservation);
+		$reservationForm->handleRequest($request);
+				
+		if ($reservationForm->isSubmitted()) {
+			if ($reservationForm->isValid()) {
+				$userAccount = $this->getUser();
+				
+				if (!$userAccount) {
+					//$this->addFlash(?, "You must be logged in to make a reservation.");
+					return $this->redirectToRoute('login');
+				}
+				else {
+					$client = $userAccount->getPossibleClient();
+					
+					if ($client && $userAccount->hasRole('ROLE_CLIENT')) {
+						if ($room && $room->getCapacity() >= intval($reservationForm->get('numberOfGuests')->getData())
+								&& $room->isFreeBetween($reservationForm->get('startDate')->getData(),
+														$reservationForm->get('endDate')->getData())) {
+							$entityManager = $this->getDoctrine()->getManager();
+							$reservation->setRoom($room);
+							$reservation->setClient($client);
+							$entityManager->persist($reservation);
+							$entityManager->flush();
+							
+							//$this->addFlash(?, "Reservation successful.");
+							return $this->redirectToRoute('home_page');
+						}
+						else {
+							//$this->addFlash(?, "Room availability and capacity cannot meet your request.");
+						}
+					}
+					else {
+						//$this->addFlash(?, "You must be registered as client to make a reservation.")
+					}
+				}
+			}
+		}
+		
+		return $this->render('room/show.html.twig',
+							['room' => $room,
+								'reservationForm' => $reservationForm->createView()]);
 	}
 	
 	/**

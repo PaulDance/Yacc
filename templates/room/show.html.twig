@@ -66,6 +66,55 @@
 		</div>
 	</div>
 	
+	<div class="row justify-content-center">
+		<div class="col col-md-8">
+			<div class="card card-raised">
+				<div class="container">
+				{{ form_start(reservationForm) }}
+					<div class="row justify-content-center">
+						<div class="col">
+							<div class="form-group bmd-form-group">
+								{{ form_label(reservationForm.startDate,
+												'Start date',
+												{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
+								{{ form_widget(reservationForm.startDate,
+												{'attr': {'class': 'form-control datetimepicker'}}) }}
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group bmd-form-group">
+								{{ form_label(reservationForm.endDate,
+												'End date',
+												{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
+								{{ form_widget(reservationForm.endDate,
+												{'attr': {'class': 'form-control datetimepicker'}}) }}
+							</div>
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col">
+							<div class="form-group bmd-form-group">
+								{{ form_label(reservationForm.numberOfGuests,
+												'Number of Guests',
+												{'label_attr': {'class': 'label-control bmd-label-floating'}}) }}
+								{{ form_widget(reservationForm.numberOfGuests,
+												{'attr': {'class': 'form-control'}}) }}
+							</div>
+						</div>
+						<div class="col text-center">
+							<div class="form-group bmd-form-group">
+								{{ form_widget(reservationForm.submit,
+												{'label': 'Reserve',
+													'attr': {'class': 'btn btn-md btn-primary'}}) }}
+							</div>
+						</div>
+					</div>
+				{{ form_end(reservationForm) }}
+			</div>
+			</div>
+		</div>
+	</div>
+	
 	<table class="table">
 		<tbody>
 			<tr>
@@ -94,9 +143,16 @@
 	</table>
 	
 	<br/>
-	<button type="button" class="btn btn-primary btn-md">Reserve</button>
 	
 	{% if app.user and is_granted('ROLE_ADMIN') %}
 		{{ include('room/_delete_form.html.twig') }}
 	{% endif %}
 {% endblock main %}
+
+{% block additional_javascripts %}
+	<script type="text/javascript">
+		$('.datetimepicker').datetimepicker({
+			'format': 'DD/MM/YYYY'
+		});
+	</script>
+{% endblock additional_javascripts %}
