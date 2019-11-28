@@ -115,35 +115,27 @@
 		</div>
 	</div>
 	
-	<table class="table">
-		<tbody>
-			<tr>
-				<form>
-					<div class="form-group">
-						<th>Your comment</th>
-						<td><input type="comment" class="form-control" id="Comment"></td>
-					</div>
-				</form>
-			</tr>
-			<tr>
-				<th>Comments</th>
-				<td>
-					<ul>
-						{% for comment in room.getComments() %}
-							<li>
-								{{ comment.getClient().getUserAccount().getFirstName() }}
-								{{ comment.getClient().getUserAccount().getLastName() }}:
-								{{ comment.getText() }}
-							</li>
-						{% endfor %}
-					</ul>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<hr class="my-4">
+	<p class="h2 title">Comments</p>
+	<ul class="list-group">
+		{% for comment in room.getComments() %}
+			<li class="list-group-item">
+				<div class="card">
+					<h3 class="card-title">
+						{{ comment.getClient().getUserAccount().getFirstName() }}
+						{{ comment.getClient().getUserAccount().getLastName() }}
+					</h3>
+					<p class="card-body text-center h5">
+						{{ comment.getText() }}
+					</p>
+				</div>
+			</li>
+		{% else %}
+			<p class="text-center h4">No comment yet.</p>
+		{% endfor %}
+	</ul>
 	
 	<br/>
-	
 	{% if app.user and is_granted('ROLE_ADMIN') %}
 		{{ include('room/_delete_form.html.twig') }}
 	{% endif %}
