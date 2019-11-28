@@ -20,7 +20,6 @@ use App\Form\CommentType;
 class RoomController extends AbstractController {
 	/**
 	 * @Route("/new", name="room_new", methods={"GET","POST"})
-	 */
 	public function new(Request $request): Response {
 		$room = new Room();
 		$form = $this->createForm(RoomType::class, $room);
@@ -37,6 +36,7 @@ class RoomController extends AbstractController {
 		return $this->render('room/new.html.twig',
 								['room' => $room, 'form' => $form->createView()]);
 	}
+	*/
 	
 	/**
 	 * @Route("/{id}", name="room_show", methods={"GET", "POST"})
@@ -112,7 +112,6 @@ class RoomController extends AbstractController {
 	
 	/**
 	 * @Route("/{id}/edit", name="room_edit", methods={"GET","POST"})
-	 */
 	public function edit(Request $request, Room $room): Response {
 		$form = $this->createForm(RoomType::class, $room);
 		$form->handleRequest($request);
@@ -126,10 +125,10 @@ class RoomController extends AbstractController {
 		return $this->render('room/edit.html.twig',
 								['room' => $room, 'form' => $form->createView()]);
 	}
+	*/
 	
 	/**
 	 * @Route("/{id}", name="room_delete", methods={"DELETE"})
-	 */
 	public function delete(Request $request, Room $room): Response {
 		if ($this->isCsrfTokenValid('delete' . $room->getId(),
 									$request->request->get('_token'))) {
@@ -140,4 +139,5 @@ class RoomController extends AbstractController {
 		
 		return $this->redirectToRoute('room_index');
 	}
+	*/
 }
