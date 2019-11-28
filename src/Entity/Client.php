@@ -23,10 +23,6 @@ class Client {
 	 */
 	private $userAccount;
 	/**
-	 * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="client", orphanRemoval=true)
-	 */
-	private $comments;
-	/**
 	 * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="client", orphanRemoval=true)
 	 */
 	private $reservations;
@@ -46,34 +42,6 @@ class Client {
 	
 	public function setUserAccount(UserAccount $userAccount): self {
 		$this->userAccount = $userAccount;
-		return $this;
-	}
-	
-	/**
-	 * @return Collection|Comment[]
-	 */
-	public function getComments(): Collection {
-		return $this->comments;
-	}
-	
-	public function addComment(Comment $comment): self {
-		if (!$this->comments->contains($comment)) {
-			$this->comments[] = $comment;
-			$comment->setClient($this);
-		}
-		
-		return $this;
-	}
-	
-	public function removeComment(Comment $comment): self {
-		if ($this->comments->contains($comment)) {
-			$this->comments->removeElement($comment);
-			
-			if ($comment->getClient() === $this) {
-				$comment->setClient(null);
-			}
-		}
-		
 		return $this;
 	}
 	

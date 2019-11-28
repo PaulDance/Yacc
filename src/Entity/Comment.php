@@ -20,7 +20,7 @@ class Comment {
 	 */
 	private $text;
 	/**
-	 * @ORM\Column(type="smallint")
+	 * @ORM\Column(type="smallint", nullable=true)
 	 */
 	private $grade;
 	/**
@@ -28,10 +28,10 @@ class Comment {
 	 */
 	private $dateTime;
 	/**
-	 * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="comments")
+	 * @ORM\ManyToOne(targetEntity="App\Entity\UserAccount", inversedBy="comments")
 	 * @ORM\JoinColumn(nullable=false)
 	 */
-	private $client;
+	private $userAccount;
 	/**
 	 * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="comments")
 	 * @ORM\JoinColumn(nullable=false)
@@ -69,12 +69,12 @@ class Comment {
 		return $this;
 	}
 	
-	public function getClient(): ?Client {
-		return $this->client;
+	public function getUserAccount(): ?UserAccount {
+		return $this->userAccount;
 	}
 	
-	public function setClient(?Client $client): self {
-		$this->client = $client;
+	public function setUserAccount(?UserAccount $userAccount): self {
+		$this->userAccount = $userAccount;
 		return $this;
 	}
 	

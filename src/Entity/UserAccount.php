@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -47,6 +49,14 @@ class UserAccount implements UserInterface {
 	 * @ORM\OneToOne(targetEntity="App\Entity\Owner", mappedBy="userAccount", cascade={"persist", "remove"})
 	 */
 	private $possibleOwner;
+	/**
+	 * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="userAccount", orphanRemoval=true)
+	 */
+	private $comments;
+	
+	public function __construct() {
+		$this->comments = new ArrayCollection();
+	}
 	
 	public function __toString(): string {
 		return $this->getUsername();
@@ -107,10 +117,11 @@ class UserAccount implements UserInterface {
 	}
 	
 	/**
-	 * Adds a new role to the user account. If the given role
+	 * Adds a new role to the user account.
+	 * If the given role
 	 * is already present in the account roles, then nothing
 	 * is done.
-	 *  
+	 *
 	 * @param string $role The new role to add.
 	 * @return self The underlying UserAccount.
 	 */
@@ -125,7 +136,7 @@ class UserAccount implements UserInterface {
 	/**
 	 * Determines whether the UserAccount is granted the given
 	 * $role or not.
-	 * 
+	 *
 	 * @param string $role The role to test.
 	 * @return bool The result of the test.
 	 */
@@ -182,6 +193,34 @@ class UserAccount implements UserInterface {
 		
 		if ($possibleOwner->getUserAccount() !== $this) {
 			$possibleOwner->setUserAccount($this);
+		}
+		
+		return $this;
+	}
+	
+	/**
+	 * @return Collection|Comment[]
+	 */
+	public function getComments(): Collection {
+		return $this->comments;
+	}
+	
+	public function addComment(Comment $comment): self {
+		if (!$this->comments->contains($comment)) {
+			$this->comments[] = $comment;
+			$comment->setUserAccount($this);
+		}
+		
+		return $this;
+	}
+	
+	public function removeComment(Comment $comment): self {
+		if ($this->comments->contains($comment)) {
+			$this->comments->removeElement($comment);
+			
+			if ($comment->getUserAccount() === $this) {
+				$comment->setUserAccount(null);
+			}
 		}
 		
 		return $this;
