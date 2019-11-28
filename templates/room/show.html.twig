@@ -7,17 +7,17 @@
 		<center><h2 class="title">{{ room.summary }}</h2></center>
 	</div>
 	<div class="row">
-		<div class="col">
-			<div id="c" class="carousel slide w-70" data-ride="carousel">
+		<div class="col-md-8">
+			<div id="c" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner">
 					<div class="carousel-item active">
 						<img src="{{ asset((room.getImageAssets()|first).getAssetPath()) }}"
-							class="card-img-top d-block w-100">
+							class="card-img-top d-block img-fluid">
 					</div>
 					{% for image in room.getImageAssets() %}
 						{% if image != (room.getImageAssets()|first) %}
 							<div class="carousel-item">
-								<img src="{{ asset(image.getAssetPath()) }}" class="d-block w-100">
+								<img src="{{ asset(image.getAssetPath()) }}" class="d-block img-fluid">
 							</div>
 						{% endif %}
 					{% endfor %}
@@ -32,23 +32,25 @@
 				</a>
 			</div>
 		</div>
-		<div class="card border-primary mb-3" style="max-width: 18rem;">
-			<div class="card-header">
-				<p class="text-left" style="white-space: nowrap;">
-					<span>Capacity: </span>
-					<span>{{ room.getCapacity() }}</span>
-					<i class="fa fa-users"></i> &nbsp;&nbsp;&nbsp;
-					<span>Area:</span>
-					<span>{{ room.getArea() }}</span>
-					<i class="fa fa-home"></i> &nbsp;&nbsp;&nbsp;
-					<span>Price:</span>
-					<span>{{ room.getPrice() }}</span>
-					<i class="fa fa-eur"></i>
-				</p>
-			</div>
-			<div class="card-body text-primary">
-				<h3 class="card-title">Description</h3>
-				<p class="card-text">{{ room.getDescription() }}</p>
+		<div class="col">
+			<div class="card border-primary mb-3">
+				<div class="card-header">
+					<p class="text-left" style="white-space: nowrap;">
+						<span>Capacity: </span>
+						<span>{{ room.getCapacity() }}</span>
+						<i class="fa fa-users"></i> &nbsp;&nbsp;&nbsp;
+						<span>Area:</span>
+						<span>{{ room.getArea() }}</span>
+						<i class="fa fa-home"></i> &nbsp;&nbsp;&nbsp;
+						<span>Price:</span>
+						<span>{{ room.getPrice() }}</span>
+						<i class="fa fa-eur"></i>
+					</p>
+				</div>
+				<div class="card-body text-primary">
+					<h3 class="card-title">Description</h3>
+					<p class="card-text">{{ room.getDescription() }}</p>
+				</div>
 			</div>
 		</div>
 	</div>
