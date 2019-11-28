@@ -91,11 +91,15 @@ class RoomRepository extends ServiceEntityRepository {
 		$qb->distinct()
 			->join('room.regions', 'region')
 			->andWhere($eb->orX(
-							$eb->like('room.summaryLowercase', ':roomSearchPattern'),
-							$eb->like('room.descriptionLowercase', ':roomSearchPattern')))
+							$eb->like($eb->concat('room.summaryLowercase', 'room.descriptionLowercase'),
+										':roomSearchPattern'),
+							$eb->like($eb->concat('room.descriptionLowercase', 'room.summaryLowercase'),
+										':roomSearchPattern')))
 			->andWhere($eb->orX(
-							$eb->like('region.nameLowercase', ':regionSearchPattern'),
-							$eb->like('region.presentationLowercase', ':regionSearchPattern')))
+							$eb->like($eb->concat('region.nameLowercase', 'region.presentationLowercase'),
+										':regionSearchPattern'),
+							$eb->like($eb->concat('region.presentationLowercase', 'region.nameLowercase'),
+										':regionSearchPattern')))
 			->andWhere($eb->notIn('room.id', $this->createQueryBuilder('subRoom')
 							->select('subRoom.id')
 							->join('subRoom.reservations', 'reservation')
@@ -104,8 +108,8 @@ class RoomRepository extends ServiceEntityRepository {
 										$eb->lt(':startDateSearch', 'reservation.endDate')))
 							->getDQL()))
 			->andWhere($eb->between('room.price', ':minPriceSearch', ':maxPriceSearch'))
-			->setParameter('roomSearchPattern', '%' . mb_strtolower($roomSearch) . '%', Types::STRING)
-			->setParameter('regionSearchPattern', '%' . mb_strtolower($regionSearch) . '%', Types::STRING)
+			->setParameter('roomSearchPattern', '%' . mb_strtolower(str_replace(' ', '%', $roomSearch)) . '%', Types::STRING)
+			->setParameter('regionSearchPattern', '%' . mb_strtolower(str_replace(' ', '%', $regionSearch)) . '%', Types::STRING)
 			->setParameter('startDateSearch', \DateTime::createFromFormat('d#m#Y', $startDateSearch)->format('Y-m-d'), Types::STRING)
 			->setParameter('endDateSearch', \DateTime::createFromFormat('d#m#Y', $endDateSearch)->format('Y-m-d'), Types::STRING)
 			->setParameter('minPriceSearch', $minPriceSearch, Types::STRING)
