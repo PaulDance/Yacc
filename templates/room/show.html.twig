@@ -29,17 +29,28 @@
 		<div class="col">
 			<div class="card border-primary mb-3">
 				<div class="card-header">
-					<p class="text-left" style="white-space: nowrap;">
-						<span>Capacity: </span>
-						<span>{{ room.getCapacity() }}</span>
-						<i class="fa fa-users"></i> &nbsp;&nbsp;&nbsp;
-						<span>Area:</span>
-						<span>{{ room.getArea() }}</span>
-						<i class="fa fa-home"></i> &nbsp;&nbsp;&nbsp;
-						<span>Price:</span>
-						<span>{{ room.getPrice() }}</span>
-						<i class="fa fa-eur"></i>
-					</p>
+					<div class="row">
+						<div class="col text-center">
+							<p><strong>Capacity</strong></p>
+						</div>
+						<div class="col text-center">
+							<p><strong>Area</strong></p>
+						</div>
+						<div class="col text-center">
+							<p><strong>Price</strong></p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col text-center">
+							<p>{{ room.getCapacity() }} <i class="fa fa-users"></i></p>
+						</div>
+						<div class="col text-center">
+							<p>{{ room.getArea() }} <i class="fa fa-home"></i></p>
+						</div>
+						<div class="col text-center">
+							<p>{{ room.getPrice() }} <i class="fa fa-eur"></i></p>
+						</div>
+					</div>
 				</div>
 				<div class="card-body text-primary">
 					<h3 class="card-title">Description</h3>
