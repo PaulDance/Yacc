@@ -41,7 +41,7 @@ class RoomController extends AbstractController {
 	 */
 	public function show(Room $room, Request $request): Response {
 		$reservation = new Reservation();
-		$reservationForm = $this->createForm(ReservationType::class, $reservation);
+		$reservationForm = $this->createForm(ReservationType::class, $reservation, ['room' => $room]);
 		$reservationForm->handleRequest($request);
 				
 		if ($reservationForm->isSubmitted()) {
