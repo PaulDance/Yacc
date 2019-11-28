@@ -18,12 +18,14 @@ class SecurityController extends AbstractController {
 			return $this->redirectToRoute('home_page');		// he cannot log in a second time, so redirect to home.
 		}
 		
-		$error = $authenticationUtils->getLastAuthenticationError();
+		if ($error = $authenticationUtils->getLastAuthenticationError()) {
+			$this->addFlash('warning', $error->getMessage());
+		}
+		
 		$lastUsername = $authenticationUtils->getLastUsername();
 		
 		return $this->render('security/login.html.twig',
-								['last_username' => $lastUsername,
-									'error' => $error]);
+								['last_username' => $lastUsername]);
 	}
 	
 	/**
