@@ -10,10 +10,10 @@
 		{% if (i % row_length) == 0 %}
 			<div class="row pb-4">
 				<div class="card-deck">
-					{% for room in rooms|slice(i, i + row_length - 1) %}
+					{% for room in rooms|slice(i, i + row_length) %}
 						{{ include('room/thumb_show.html.twig',
 									{room: room,
-										index: loop.index,
+										index: i + loop.index,
 										max_col_width: max_col_width},
 									with_context = false) }}
 					{% endfor %}
