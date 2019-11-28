@@ -292,6 +292,7 @@ class AppFixtures extends Fixture {
 									->setUserAccount($jeanPalucaClientAccount);
 		$manager->persist($jpJmRoom1Comment1);
 		
+		
 		$gzJmRoom1Reservation = (new Reservation())
 										->setStartDate((new \DateTime())->setDate(2019, 11, 28))
 										->setEndDate((new \DateTime())->setDate(2019, 12, 2))
