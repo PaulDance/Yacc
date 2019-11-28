@@ -43,13 +43,13 @@ class RoomController extends AbstractController {
 		$reservation = new Reservation();
 		$reservationForm = $this->createForm(ReservationType::class, $reservation, ['room' => $room]);
 		$reservationForm->handleRequest($request);
-				
+		
 		if ($reservationForm->isSubmitted()) {
 			if ($reservationForm->isValid()) {
 				$userAccount = $this->getUser();
 				
 				if (!$userAccount) {
-					//$this->addFlash(?, "You must be logged in to make a reservation.");
+					$this->addFlash('warning', 'You must be logged in to make a reservation.');
 					return $this->redirectToRoute('login');
 				}
 				else {
@@ -65,15 +65,15 @@ class RoomController extends AbstractController {
 							$entityManager->persist($reservation);
 							$entityManager->flush();
 							
-							//$this->addFlash(?, "Reservation successful.");
+							$this->addFlash('success', 'Reservation successful.');
 							return $this->redirectToRoute('home_page');
 						}
 						else {
-							//$this->addFlash(?, "Room availability and capacity cannot meet your request.");
+							$this->addFlash('danger', 'Room availability or capacity cannot meet your request.');
 						}
 					}
 					else {
-						//$this->addFlash(?, "You must be registered as client to make a reservation.")
+						$this->addFlash('danger', 'You must be registered as client to make a reservation.');
 					}
 				}
 			}
