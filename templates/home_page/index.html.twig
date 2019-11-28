@@ -13,8 +13,49 @@
 		<div class="col-sm-1"></div>
 		<div class="col">
 			<div class="card card-raised">
-				<div class="container">
-					$Basic search here maybe$
+				<div class="container mt-3 mb-3">
+					{{ form_start(basicSearchForm) }}
+						<div class="row">
+							<div class="col">
+								<div class="form-group bmd-form-group">
+									{{ form_label(basicSearchForm.startDate,
+													'Start date',
+													{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
+									{{ form_widget(basicSearchForm.startDate,
+													{'attr': {'class': 'form-control datetimepicker'}}) }}
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group bmd-form-group">
+									{{ form_label(basicSearchForm.endDate,
+													'End date',
+													{'label_attr': {'class': 'label-control bmd-label-static'}}) }}
+									{{ form_widget(basicSearchForm.endDate,
+													{'attr': {'class': 'form-control datetimepicker'}}) }}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="form-group bmd-form-group">
+									{{ form_label(basicSearchForm.region,
+													'Region',
+													{'label_attr': {'class': 'bmd-label-floating'}}) }}
+									{{ form_widget(basicSearchForm.region,
+													{'attr': {'class': 'form-control'}}) }}
+								</div>
+							</div>
+							<div class="col">
+								<div class="form-group bmd-form-group">
+									<span class="pull-right">
+										{{ form_widget(basicSearchForm.submitButton,
+														{'label': 'Search',
+															'attr': {'class': 'btn btn-md btn-round btn-primary'}}) }}
+									</span>
+								</div>
+							</div>
+						</div>
+					{{ form_end(basicSearchForm) }}
 				</div>
 			</div>
 		</div>
@@ -31,11 +72,11 @@
 		</div>
 		<div class="features row justify-content-center pt-4">
 			{{ include('room/thumb_list.html.twig',
-			            {'rooms': randomRooms,
-			                'row_length': 3,
-			                'max_col_width': 22,
-			                'nothing_found_message': ''},
-			            with_context = false) }}
+						{'rooms': randomRooms,
+							'row_length': 3,
+							'max_col_width': 22,
+							'nothing_found_message': ''},
+						with_context = false) }}
 		</div>
 	</div>
 	<div class="section text-center">
@@ -47,11 +88,11 @@
 		</div>
 		<div class="features row justify-content-center pt-4">
 			{{ include('region/thumb_list.html.twig',
-			            {'regions': randomRegions,
-			                'row_length': 3,
-			                'max_col_width': 22,
-			                'nothing_found_message': ''},
-			            with_context = false) }}
+						{'regions': randomRegions,
+							'row_length': 3,
+							'max_col_width': 22,
+							'nothing_found_message': ''},
+						with_context = false) }}
 		</div>
 	</div>
 	<div class="section text-center">
@@ -104,3 +145,11 @@
 		</div>
 	</div>
 {% endblock main %}
+
+{% block additional_javascripts %}
+	<script type="text/javascript">
+		$('.datetimepicker').datetimepicker({
+			'format': 'DD/MM/YYYY'
+		});
+	</script>
+{% endblock additional_javascripts %}
