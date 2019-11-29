@@ -136,6 +136,16 @@ class AppFixtures extends Fixture {
 															$this->container, $this->fileUploader));
 		
 		
+		$rootAdminAccount = new UserAccount();
+		$rootAdminAccount->addRole('ROLE_SUPER_ADMIN')
+						->setFirstName('Super mega')
+						->setLastName('Admin')
+						->setEmail('root@ro.ot')
+						->setPassword($this->passwordEncoder
+											->encodePassword($rootAdminAccount,
+															'rootadmin'));
+		$manager->persist($rootAdminAccount);
+		
 		$jeanMichelOwnerAccount = new UserAccount();
 		$jeanMichelOwner = (new Owner())
 								->setUserAccount($jeanMichelOwnerAccount
