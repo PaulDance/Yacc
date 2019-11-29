@@ -22,13 +22,14 @@ class RoomController extends AbstractController {
 	 * @Route("/new", name="room_new", methods={"GET","POST"})
 	 */
 	public function new(Request $request): Response {
-		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		$this->denyAccessUnlessGranted('ROLE_OWNER');
 		
 		$room = new Room();
 		$form = $this->createForm(RoomType::class, $room);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
+			$room->setOwner($this->getUser()->getPossibleOwner());
 			$entityManager = $this->getDoctrine()->getManager();
 			$entityManager->persist($room);
 			$entityManager->flush();
@@ -116,7 +117,12 @@ class RoomController extends AbstractController {
 	 * @Route("/{id}/edit", name="room_edit", methods={"GET","POST"})
 	 */
 	public function edit(Request $request, Room $room): Response {
-		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		$this->denyAccessUnlessGranted('ROLE_OWNER');
+		$owner = $this->getUser()->getPossibleOwner();
+		
+		if (!$this->isGranted('ROLE_ADMIN') && $owner->getId() !== $room->getOwner()->getId()) {
+			return $this->createAccessDeniedException();
+		}
 		
 		$form = $this->createForm(RoomType::class, $room);
 		$form->handleRequest($request);
@@ -135,7 +141,12 @@ class RoomController extends AbstractController {
 	 * @Route("/{id}", name="room_delete", methods={"DELETE"})
 	 */
 	public function delete(Request $request, Room $room): Response {
-		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		$this->denyAccessUnlessGranted('ROLE_OWNER');
+		$owner = $this->getUser()->getPossibleOwner();
+		
+		if (!$this->isGranted('ROLE_ADMIN') && $owner->getId() !== $room->getOwner()->getId()) {
+			return $this->createAccessDeniedException();
+		}
 		
 		if ($this->isCsrfTokenValid('delete' . $room->getId(),
 									$request->request->get('_token'))) {

@@ -191,7 +191,9 @@
 	</ul>
 	
 	<br/>
-	{% if app.user and is_granted('ROLE_ADMIN') %}
+	{% if app.user and (is_granted('ROLE_ADMIN')
+					or is_granted('ROLE_OWNER') 
+						and room.getOwner() is same as(app.user.getPossibleOwner())) %}
 		<div class="row">
 			<div class="col">
 				<a href="{{ path('room_edit', {'id': room.getId()}) }}">
