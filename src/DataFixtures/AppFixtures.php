@@ -225,24 +225,24 @@ class AppFixtures extends Fixture {
 													Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom2,
 													$this->container, $this->fileUploader));
 		
-		$jmRoom3 = (new Room())
+		$tfRoom1 = (new Room())
 						->setSummary('Maison familliale')
 						->setDescription('A proximité de Disney Land Paris.')
 						->setCapacity(6)
 						->setArea(400.0)
 						->setPrice(160.0)
 						->setAddress('91 rue de Lescapadrier')
-						->setOwner($jeanMichelOwner)
+						->setOwner($thomasOwner)
 						->addRegion($idfRegion);
-		$manager->persist($jmRoom3);
+		$manager->persist($tfRoom1);
 		$manager->flush();
-		$jmRoom3->addImageAsset((new ImageAsset())
+		$tfRoom1->addImageAsset((new ImageAsset())
 										->getSetFromURL('https://www.pagesjaunes.fr/media/cviv/07216150_N_0002_photo.jpg',
-														Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom3,
+														Room::imgDirRelConfig, Room::imgDirAbsConfig, $tfRoom1,
 														$this->container, $this->fileUploader))
 				->addImageAsset((new ImageAsset())
 										->getSetFromURL('https://www.3dpaysage.fr/media/galerie-68/small/0wh800.jpg',
-														Room::imgDirRelConfig, Room::imgDirAbsConfig, $jmRoom3,
+														Room::imgDirRelConfig, Room::imgDirAbsConfig, $tfRoom1,
 														$this->container, $this->fileUploader));
 		
 		$geoffroyZardiClientAccount = new UserAccount();
