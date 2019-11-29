@@ -21,7 +21,11 @@
 						</ul>
 						<ul class="navbar-nav ml-auto">
 							{% if app.user %}
-								{{ render_bootstrap_menu('main_top_right_logged_in') }}
+								{% if is_granted('ROLE_OWNER') %}
+									{{ render_bootstrap_menu('main_top_right_owner_logged_in') }}
+								{% else %}
+									{{ render_bootstrap_menu('main_top_right_logged_in') }}
+								{% endif %}
 							{% else %}
 								{{ render_bootstrap_menu('main_top_right_anonymous') }}
 							{% endif %}
