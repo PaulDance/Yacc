@@ -47,12 +47,23 @@
 	
 	<hr class="my-4">
 	<p class="h2 title">Rooms:</p>
-	<div class="pb-4">
-		{{ include('room/thumb_list.html.twig',
-    				{rooms: region.getRooms(),
-    					row_length: 3,
-    					max_col_width: 22,
-    					nothing_found_message: 'No rooms registered in this region yet.'},
-    				with_context = false) }}
-	</div>
+	{{ include('room/thumb_list.html.twig',
+				{rooms: region.getRooms(),
+					row_length: 3,
+					max_col_width: 22,
+					nothing_found_message: 'No rooms registered in this region yet.'},
+				with_context = false) }}
+	
+	{% if app.user and is_granted('ROLE_ADMIN') %}
+		<div class="row">
+			<div class="col">
+				<a href="{{ path('region_edit', {'id': region.getId()}) }}">
+					<button class="btn btn-md btn-default">Edit</button>
+				</a>
+			</div>
+			<div class="col text-right">
+				{{ include('region/_delete_form.html.twig') }}
+			</div>
+		</div>
+	{% endif %}
 {% endblock main %}

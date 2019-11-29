@@ -27,6 +27,8 @@ class RegionController extends AbstractController {
 	 * @Route("/new", name="region_new", methods={"GET","POST"})
 	 */
 	public function new(Request $request): Response {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		
 		$region = new Region();
 		$form = $this->createForm(RegionType::class, $region);
 		$form->handleRequest($request);
@@ -36,7 +38,7 @@ class RegionController extends AbstractController {
 			$entityManager->persist($region);
 			$entityManager->flush();
 			
-			return $this->redirectToRoute('region_index');
+			return $this->redirectToRoute('region_show', ['id' => $region->getId()]);
 		}
 		
 		return $this->render('region/new.html.twig',
@@ -55,13 +57,15 @@ class RegionController extends AbstractController {
 	 * @Route("/{id}/edit", name="region_edit", methods={"GET","POST"})
 	 */
 	public function edit(Request $request, Region $region): Response {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		
 		$form = $this->createForm(RegionType::class, $region);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
 			$this->getDoctrine()->getManager()->flush();
 			
-			return $this->redirectToRoute('region_index');
+			return $this->redirectToRoute('region_show', ['id' => $region->getId()]);
 		}
 		
 		return $this->render('region/edit.html.twig',
@@ -73,6 +77,8 @@ class RegionController extends AbstractController {
 	 * @Route("/{id}", name="region_delete", methods={"DELETE"})
 	 */
 	public function delete(Request $request, Region $region): Response {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		
 		if ($this->isCsrfTokenValid('delete' . $region->getId(),
 									$request->request->get('_token'))) {
 			$entityManager = $this->getDoctrine()->getManager();

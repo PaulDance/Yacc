@@ -22,6 +22,8 @@ class RoomController extends AbstractController {
 	 * @Route("/new", name="room_new", methods={"GET","POST"})
 	 */
 	public function new(Request $request): Response {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		
 		$room = new Room();
 		$form = $this->createForm(RoomType::class, $room);
 		$form->handleRequest($request);
@@ -31,7 +33,7 @@ class RoomController extends AbstractController {
 			$entityManager->persist($room);
 			$entityManager->flush();
 			
-			return $this->redirectToRoute('room_index');
+			return $this->redirectToRoute('room_show', ['id' => $room->getId()]);
 		}
 		
 		return $this->render('room/new.html.twig',
@@ -114,13 +116,15 @@ class RoomController extends AbstractController {
 	 * @Route("/{id}/edit", name="room_edit", methods={"GET","POST"})
 	 */
 	public function edit(Request $request, Room $room): Response {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		
 		$form = $this->createForm(RoomType::class, $room);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
 			$this->getDoctrine()->getManager()->flush();
 			
-			return $this->redirectToRoute('room_index');
+			return $this->redirectToRoute('room_show', ['id' => $room->getId()]);
 		}
 		
 		return $this->render('room/edit.html.twig',
@@ -131,6 +135,8 @@ class RoomController extends AbstractController {
 	 * @Route("/{id}", name="room_delete", methods={"DELETE"})
 	 */
 	public function delete(Request $request, Room $room): Response {
+		$this->denyAccessUnlessGranted('ROLE_ADMIN');
+		
 		if ($this->isCsrfTokenValid('delete' . $room->getId(),
 									$request->request->get('_token'))) {
 			$entityManager = $this->getDoctrine()->getManager();
@@ -138,6 +144,6 @@ class RoomController extends AbstractController {
 			$entityManager->flush();
 		}
 		
-		return $this->redirectToRoute('room_index');
+		return $this->redirectToRoute('search');
 	}
 }

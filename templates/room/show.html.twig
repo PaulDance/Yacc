@@ -192,7 +192,16 @@
 	
 	<br/>
 	{% if app.user and is_granted('ROLE_ADMIN') %}
-		{{ include('room/_delete_form.html.twig') }}
+		<div class="row">
+			<div class="col">
+				<a href="{{ path('room_edit', {'id': room.getId()}) }}">
+					<button class="btn btn-md btn-default">Edit</button>
+				</a>
+			</div>
+			<div class="col text-right">
+				{{ include('room/_delete_form.html.twig') }}
+			</div>
+		</div>
 	{% endif %}
 {% endblock main %}
 
