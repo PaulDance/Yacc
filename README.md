@@ -3,6 +3,10 @@ Yacc - Yet Another Couette & Café
 
 #### A dynamic room booking Web site, i.e. an AirBnB rip-off.
 
+### Authors
+
+Paul Mabileau
+Alexandre Da Costa
 
 
 ## Requirements
