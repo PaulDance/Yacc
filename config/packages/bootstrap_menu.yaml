@@ -41,7 +41,19 @@ bootstrap_menu:
               route: 'room_new'
             logout:
               label: 'Logout'
-              route: 'logout' 
+              route: 'logout'
+    
+    main_top_right_admin_logged_in:
+      items:
+        account:
+          label: 'Account'
+          items:
+            new_room:
+              label: 'New region'
+              route: 'region_new'
+            logout:
+              label: 'Logout'
+              route: 'logout'
     
     main_bottom_left:
       items:

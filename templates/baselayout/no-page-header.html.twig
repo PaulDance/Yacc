@@ -23,6 +23,8 @@
 							{% if app.user %}
 								{% if is_granted('ROLE_OWNER') %}
 									{{ render_bootstrap_menu('main_top_right_owner_logged_in') }}
+								{% elseif is_granted('ROLE_ADMIN') %}
+									{{ render_bootstrap_menu('main_top_right_admin_logged_in') }}
 								{% else %}
 									{{ render_bootstrap_menu('main_top_right_logged_in') }}
 								{% endif %}
