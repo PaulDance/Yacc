@@ -5,7 +5,13 @@
 			Room {{ index }}
 		</div>
 		
-		<img src="{{ asset((room.getImageAssets()|first).getAssetPath()) }}" class="card-img-top" alt="Room {{ index }}"/>
+		{% if room.getImageAssets()|length != 0 %}
+			<img src="{{ asset((room.getImageAssets()|first).getAssetPath()) }}" class="card-img-top" alt="Room {{ index }}"/>
+		{% else %}
+			<div class="display-1">
+				<i class="fa fa-image"></i>
+			</div>
+		{% endif %}
 		
 		<div class="card-body">
 			<div class="row align-items-center">
