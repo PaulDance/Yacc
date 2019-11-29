@@ -25,6 +25,7 @@ class RegionController extends AbstractController {
 	
 	/**
 	 * @Route("/new", name="region_new", methods={"GET","POST"})
+	 */
 	public function new(Request $request): Response {
 		$region = new Region();
 		$form = $this->createForm(RegionType::class, $region);
@@ -42,7 +43,6 @@ class RegionController extends AbstractController {
 								['region' => $region,
 								'form' => $form->createView()]);
 	}
-	*/
 	
 	/**
 	 * @Route("/{id}", name="region_show", methods={"GET"})
@@ -53,6 +53,7 @@ class RegionController extends AbstractController {
 	
 	/**
 	 * @Route("/{id}/edit", name="region_edit", methods={"GET","POST"})
+	 */
 	public function edit(Request $request, Region $region): Response {
 		$form = $this->createForm(RegionType::class, $region);
 		$form->handleRequest($request);
@@ -67,10 +68,10 @@ class RegionController extends AbstractController {
 								['region' => $region,
 								'form' => $form->createView()]);
 	}
-	*/
 	
 	/**
 	 * @Route("/{id}", name="region_delete", methods={"DELETE"})
+	 */
 	public function delete(Request $request, Region $region): Response {
 		if ($this->isCsrfTokenValid('delete' . $region->getId(),
 									$request->request->get('_token'))) {
@@ -81,5 +82,4 @@ class RegionController extends AbstractController {
 		
 		return $this->redirectToRoute('region_index');
 	}
-	*/
 }
