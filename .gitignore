@@ -17,6 +17,7 @@ bin/symfony
 
 # Composer
 composer.lock
+symfony.lock
 
 # Eclipse project
 .project
