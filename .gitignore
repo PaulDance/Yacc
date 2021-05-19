@@ -12,6 +12,7 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
 # Symfony local binary
 bin/symfony
 
